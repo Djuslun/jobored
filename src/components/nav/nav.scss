@@ -1,0 +1,17 @@
+@import'../../styles/variables';
+
+.nav {
+  &__list {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__link {
+    transition: all 0.3s;
+    color: $black;
+
+    &--active {
+      color: $blue-500;
+    }
+  }
+}

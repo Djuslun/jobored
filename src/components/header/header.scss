@@ -1,0 +1,15 @@
+@import'../../styles/variables';
+
+.header {
+  padding: 22px 0;
+  background: $white;
+
+  &__container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    color: $black;
+  }
+}
