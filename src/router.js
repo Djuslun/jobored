@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Favorite from './pages/Favorite'
-import Vacancy from './pages/Vacancy'
-import VacancySearch from './pages/VacancySearch'
-import NotFoundPage from './pages/NotFoundPage'
+import Favorite from './pages/Favorite';
+import Vacancy from './pages/Vacancy';
+import VacancySearch from './pages/VacancySearch';
+import NotFoundPage from './pages/NotFoundPage';
 
 const AppRouter = () => {
 

@@ -1,0 +1,10 @@
+@import '../../styles/variables';
+
+.control {
+  display: flex;
+  flex-direction: column;
+
+  &__inc {
+    transform: rotate(180deg);
+  }
+}

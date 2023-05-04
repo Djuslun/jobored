@@ -1,4 +1,5 @@
 import AppRouter from "../../router"
+import './main.scss'
 
 const Main = ({ }) => {
 

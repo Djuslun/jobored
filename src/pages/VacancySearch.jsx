@@ -1,9 +1,11 @@
-
+import FilterForm from "../components/filterForm/FilterForm"
 
 const VacancySearch = () => {
 
   return (
-    <div>Поиск вакансий</div>
+    <div>
+      <FilterForm />
+    </div>
   )
 }
 export default VacancySearch
