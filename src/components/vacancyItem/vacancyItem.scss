@@ -1,0 +1,64 @@
+@import '../../styles/variables';
+
+.vacancy {
+  padding: 24px;
+  background-color: $white;
+  border-radius: 12px;
+  border: 1px solid $gray-200;
+
+  &__title-box {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    margin-bottom: 12px;
+    color: $blue-500;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &__favorite::after {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 22px;
+    background: url(../../assets/star.svg) no-repeat;
+  }
+
+  &__salary-box {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__salary {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+  }
+
+  &__salary::after {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin: 0 12px;
+    background-color: $gray-600;
+  }
+
+  &__location {
+    display: flex;
+    align-items: center;
+  }
+
+  &__location::before {
+    content: '';
+    margin-right: 12px;
+    display: block;
+    width: 14px;
+    height: 17px;
+    background: url(../../assets/location.svg) center/contain no-repeat;
+  }
+}
