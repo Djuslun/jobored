@@ -1,6 +1,7 @@
 @import '../../styles/variables';
 
 .vacancy {
+  list-style: none;
   padding: 24px;
   background-color: $white;
   border-radius: 12px;
@@ -16,14 +17,20 @@
     color: $blue-500;
     font-size: 20px;
     font-weight: 600;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
-  &__favorite::after {
-    content: '';
-    display: block;
-    width: 22px;
-    height: 22px;
-    background: url(../../assets/star.svg) no-repeat;
+  &__favorite {
+    transition: all 0.2s;
+    fill: #fff;
+    color: #ACADB9;
+  }
+
+  &__favorite:hover {
+    color: $blue-500;
   }
 
   &__salary-box {
@@ -61,4 +68,9 @@
     height: 17px;
     background: url(../../assets/location.svg) center/contain no-repeat;
   }
+}
+
+.favorite {
+  color: $blue-500;
+  fill: $blue-500;
 }

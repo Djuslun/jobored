@@ -1,9 +1,43 @@
-
+import VacancyList from "../components/vacancyList/VacancyList"
+import { useEffect, useState } from "react"
+import { Pagination } from '@mantine/core';
+import { Spinner } from "../components/spinner/Spinner";
+import useVacanciesService from "../servises/vacanciesServise";
+import FavoriteEmptyState from "../components/favoriteEmptyState/FavoriteEmptyState";
+import Vacancies from "../components/vacancies/Vacancies";
 
 const Favorite = () => {
+  const { loadingStatus, getFavoriteVacacies } = useVacanciesService()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [favoriteItems, setFavoriteItems] = useState([])
+  const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    getFavoriteVacacies(currentPage)
+      .then(data => {
+        setFavoriteItems(data.vacancies)
+        setTotal(Math.ceil(data.total / 4))
+      })
+  }, [currentPage])
 
   return (
-    <div>Избранное</div>
+    <Vacancies currentPage={currentPage} total={total} setCurrentPage={setCurrentPage}>
+      <View
+        loadingStatus={loadingStatus}
+        favoriteItems={favoriteItems} />
+    </Vacancies>
   )
 }
+
 export default Favorite
+
+const View = ({ loadingStatus, favoriteItems }) => {
+  switch (loadingStatus) {
+    case 'loading': return <Spinner />
+    case 'error': return 'Error'
+    case 'ok': {
+      return favoriteItems.length ? <VacancyList vacancies={favoriteItems} /> : <FavoriteEmptyState />
+    }
+    default: return <></>
+  }
+}

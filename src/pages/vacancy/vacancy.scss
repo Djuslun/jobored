@@ -1,0 +1,36 @@
+@import '../../styles/variables';
+
+.vacancy-page {
+  max-width: 773px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__body {
+    padding: 24px;
+    background-color: $white;
+    border-radius: 12px;
+  }
+
+  &__p {
+    margin-bottom: 5px;
+  }
+
+  &__list {
+    margin-bottom: 20px;
+  }
+
+  &__list-item {}
+
+  // &__list-item::before {
+  //   flex: 0 0 5px;
+  //   margin-right: 8px;
+  //   content: '';
+  //   display: block;
+  //   width: 5px;
+  //   height: 5px;
+  //   border-radius: 50%;
+  //   background-color: #000;
+  // }
+}

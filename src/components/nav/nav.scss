@@ -1,4 +1,5 @@
 @import'../../styles/variables';
+@import "../../assets/fonts/fonts";
 
 .nav {
   &__list {
@@ -7,11 +8,13 @@
   }
 
   &__link {
+    font-family: Inter, sans-serif;
     transition: all 0.3s;
     color: $black;
 
     &--active {
       color: $blue-500;
+      font-weight: 500;
     }
   }
 }
