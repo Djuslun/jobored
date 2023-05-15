@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Input, Button } from '@mantine/core';
 import './customInput.scss'
 import searchIcon from '../../assets/Search.svg'
@@ -9,6 +9,7 @@ const CustomInput = ({ }) => {
   const [keywords, setKeywords] = useState('');
   const dispatch = useDispatch()
   const { keywords: keywordsValue } = useSelector(state => state.vacancies.filters)
+  const buttonRef = useRef(null)
 
   useEffect(() => {
     setKeywords(keywordsValue)
@@ -18,14 +19,6 @@ const CustomInput = ({ }) => {
     wrapper: {
       marginBottom: 16,
     },
-    input: {
-      border: '1px solid #eaebed',
-      borderRadius: 8,
-      height: 48
-    },
-    rightSection: {
-      marginRight: 32
-    }
   }
 
   const handleSubmit = (e) => {
@@ -34,13 +27,14 @@ const CustomInput = ({ }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='form-keywords' onSubmit={handleSubmit}>
       <Input
         value={keywords}
         onChange={e => setKeywords(e.target.value)}
         icon={<SearchIcon />}
         placeholder="Введите название вакансии"
-        rightSection={<Button type='submit'>Поиск</Button>}
+        rightSection={<Button ref={buttonRef} type='submit'>Поиск</Button>}
+        rightSectionWidth={buttonRef.current ? buttonRef.current.offsetWidth : undefined}
         styles={styles}
       />
     </form>

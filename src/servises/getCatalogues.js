@@ -12,7 +12,7 @@ export const getCatalogues = () => {
 
       const data = await response.json();
 
-      return data.map(item => ({ label: item.title_rus, value: item.key }));
+      return data.map(item => ({ label: item.title_trimmed, value: item.key }));
     } catch (e) {
       throw e;
     }

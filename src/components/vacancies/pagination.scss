@@ -1,0 +1,14 @@
+@import '../../assets/fonts/fonts';
+@import '../../styles/variables';
+
+.mantine-Pagination-control {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 0.5rem;
+
+  &[data-active] {
+    background-color: $blue-500;
+  }
+}

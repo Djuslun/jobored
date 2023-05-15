@@ -1,5 +1,5 @@
 import { Pagination } from '@mantine/core';
-
+import './pagination.scss'
 
 const Vacancies = ({ children, currentPage, total, setCurrentPage }) => {
 
@@ -11,6 +11,7 @@ const Vacancies = ({ children, currentPage, total, setCurrentPage }) => {
         total={total}
         position="center"
         onChange={setCurrentPage}
+        size={'lg'}
       />
     </>
   )

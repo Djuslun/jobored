@@ -1,10 +1,11 @@
-import arrowDown from '../../assets/arrowDown.svg'
+import { ReactComponent as ArrowDown } from '../../assets/arrowDown.svg'
 import './selectArrow.scss'
 
-const SelectArrow = () => {
+const SelectArrow = ({ opened }) => {
+  const className = opened ? 'up' : 'down';
 
   return (
-    <img src={arrowDown} alt="arrow" />
+    <ArrowDown className={`arrow ${className}`} />
   )
 }
 export default SelectArrow

@@ -1,5 +1,13 @@
+@import '../../styles/variables';
+
+.arrow {
+  transition: all 0.5s;
+  color: $gray-500;
+}
+
 .up {
-  transform: rotate(180deg);
+  color: $blue-500;
+  transform: rotateX(180deg);
 }
 
 .down {}

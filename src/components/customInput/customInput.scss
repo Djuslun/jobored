@@ -1,0 +1,44 @@
+@import '../../styles/variables';
+@import '../../assets/fonts/fonts';
+
+.form-keywords {
+
+  .mantine-Input-input {
+    border: 1px solid #eaebed;
+    border-radius: 8px;
+    height: 48px;
+    font-family: Inter;
+    font-size: 14px;
+
+    &:focus {
+      border-color: $blue-500;
+    }
+  }
+
+  .mantine-Input-rightSection {
+    position: absolute;
+    right: 17px;
+
+
+  }
+
+  .mantine-Button-root {
+    transition: all 0.3s;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    background-color: $blue-500;
+    padding: 0;
+
+    &:hover {
+      background-color: $blue-400;
+    }
+
+    &:active {
+      background-color: $blue-600;
+    }
+  }
+
+  .mantine-Button-label {
+    padding: 0 20px;
+  }
+}

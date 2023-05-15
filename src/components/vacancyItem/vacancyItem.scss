@@ -1,4 +1,5 @@
 @import '../../styles/variables';
+@import '../../assets/fonts/fonts';
 
 .vacancy {
   list-style: none;
@@ -6,6 +7,7 @@
   background-color: $white;
   border-radius: 12px;
   border: 1px solid $gray-200;
+  font-family: Inter, sans-serif;
 
   &__title-box {
     display: flex;
@@ -17,6 +19,7 @@
     color: $blue-500;
     font-size: 20px;
     font-weight: 600;
+    line-height: 24px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -66,7 +69,7 @@
     display: block;
     width: 14px;
     height: 17px;
-    background: url(../../assets/location.svg) center/contain no-repeat;
+    background: url(../../assets/location.svg) center/cover no-repeat;
   }
 }
 

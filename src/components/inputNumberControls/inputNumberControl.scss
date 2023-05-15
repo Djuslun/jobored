@@ -2,6 +2,7 @@
 
 .control {
   display: flex;
+  color: $gray-500;
   flex-direction: column;
 
   &__inc {

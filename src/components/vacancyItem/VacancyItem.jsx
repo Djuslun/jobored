@@ -8,8 +8,7 @@ import './vacancyItem.scss'
 const VacancyItem = ({ currency, payment_from, payment_to, profession, type_of_work, town, id }) => {
   const dispatch = useDispatch()
 
-  const { loadingStatus, favoriteIDs, total } = useSelector(store => store.vacancies)
-
+  const { favoriteIDs } = useSelector(store => store.vacancies)
 
   const isFavorite = favoriteIDs.includes(id)
 
