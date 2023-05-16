@@ -24,6 +24,7 @@
   }
 
   &__reset {
+    transition: all 0.2s;
     font-size: 14px;
     color: $gray-500;
     font-weight: 500;
@@ -116,5 +117,120 @@
     font-weight: 700;
     margin-bottom: 8px;
     line-height: 19px;
+  }
+}
+
+
+@media (max-width: 1023px) {
+  .form {
+    padding: 16px;
+    flex: 0 1 315px;
+    border-radius: 12px;
+
+    &__title-box {
+      margin-bottom: 24px;
+    }
+
+    &__title {
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    &__reset {
+      font-size: 12px;
+    }
+
+    &__filter {
+      margin-bottom: 12px;
+    }
+
+    .mantine-Select-input {
+      font-size: 12px;
+      height: 32px;
+    }
+
+    .mantine-Select-item {
+      font-size: 12px;
+    }
+
+    .mantine-NumberInput-input {
+      height: 32px;
+      font-size: 12px;
+    }
+
+    .mantine-Button-root {
+      height: 30px;
+      font-size: 12px;
+    }
+  }
+
+  .filter {
+    &__title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 19px;
+    }
+  }
+}
+
+@media (max-width:767px) {
+  .form {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 20px;
+
+    &__title-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    &__title {
+      color: $black;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+
+    &__reset {
+      font-size: 12px;
+    }
+
+    &__filter {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .mantine-Select-input {
+      font-size: 12px;
+      height: 26px;
+    }
+
+    .mantine-Select-item {
+      font-size: 12px;
+    }
+
+    .mantine-NumberInput-root:not(:last-child) {
+      margin-bottom: 6px;
+    }
+
+    .mantine-NumberInput-input {
+      height: 26px;
+      font-size: 12px;
+    }
+
+    .mantine-Button-root {
+      height: 30px;
+      font-size: 12px;
+    }
+  }
+
+  .filter {
+    &__title {
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
   }
 }

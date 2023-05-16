@@ -43,7 +43,7 @@ const View = ({ loadingStatus, vacancyItem, vacancy }) => {
     case 'ok': {
       return (
         <div className='vacancy-page'>
-          <VacancyItem {...vacancyItem} />
+          <VacancyItem {...vacancyItem} isSingleVacancy={true} />
           <div className='vacancy-page__body'>
             {vacancy}
           </div>

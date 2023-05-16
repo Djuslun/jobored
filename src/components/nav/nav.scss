@@ -18,3 +18,35 @@
     }
   }
 }
+
+@media (max-width: 1023px) {
+  .nav {
+    &__link {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .nav {
+    transition: all 0.5s;
+    padding: 16px;
+    width: 300px;
+    position: fixed;
+    top: 60px;
+    right: -100%;
+    background-color: $gray-100;
+    border-radius: 8px;
+    z-index: 1;
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    &__active {
+      right: 12px;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Favorite from './pages/Favorite';
 import Vacancy from './pages/vacancy/Vacancy';
@@ -9,7 +9,8 @@ const AppRouter = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<VacancySearch />} />
+      <Route path='/' element={<Navigate to={'/vacancy'} />} />
+      <Route path='/vacancy' element={<VacancySearch />} />
       <Route path='/favorite' element={<Favorite />} />
       <Route path='/vacancy/:id' element={<Vacancy />} />
       <Route path='*' element={<NotFoundPage />} />

@@ -15,7 +15,19 @@ body {
 }
 
 [class*="__container"] {
-  max-width: 1140px;
-  padding: 0 12px;
+  max-width: 1148px;
+  padding: 0 16px;
   margin: 0 auto;
+}
+
+@media (max-width: 1023px) {
+  [class*="__container"] {
+    max-width: 840px;
+  }
+}
+
+@media (max-width: 767px) {
+  [class*="__container"] {
+    max-width: 540px;
+  }
 }

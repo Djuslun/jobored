@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { ReactComponent as Star } from "../../assets/star.svg"
 import './vacancyItem.scss'
 
-const VacancyItem = ({ currency, payment_from, payment_to, profession, type_of_work, town, id }) => {
+const VacancyItem = ({ currency, payment_from, payment_to, profession, type_of_work, town, id, isSingleVacancy }) => {
   const dispatch = useDispatch()
 
   const { favoriteIDs } = useSelector(store => store.vacancies)
@@ -18,16 +18,20 @@ const VacancyItem = ({ currency, payment_from, payment_to, profession, type_of_w
     ? `з/п ${payment_from ? `от ${payment_from}` : ''} ${payment_to ? `до ${payment_to}` : ''} ${currency}`
     : 'з/п не указана'
 
+  const itemTitleStyles = classNames('vacancy__title', { 'vacancy__title--single': isSingleVacancy })
+  const itemSalaryStyles = classNames('vacancy__salary', { 'vacancy__salary--single': isSingleVacancy })
+  const itemSalaryBoxStyles = classNames('vacancy__salary-box', { 'vacancy__salary-box--single': isSingleVacancy })
+
   return (
     <li className="vacancy">
       <div className='vacancy__title-box'>
         <Link to={`/vacancy/${id}`}>
-          <h3 className="vacancy__title">{profession}</h3>
+          <h3 className={itemTitleStyles}>{profession}</h3>
         </Link>
-        <Star className={favoriteClass} width={22} height={22} onClick={() => dispatch(favoriteVacancyToggle(id))} />
+        <Star className={favoriteClass} width={24} height={24} onClick={() => dispatch(favoriteVacancyToggle(id))} />
       </div>
-      <div className='vacancy__salary-box'>
-        <p className='vacancy__salary'>{salary}</p>
+      <div className={itemSalaryBoxStyles}>
+        <p className={itemSalaryStyles}>{salary}</p>
         <p className='vacancy__employment'>{type_of_work}</p>
       </div>
       <p className="vacancy__location">{town}</p>

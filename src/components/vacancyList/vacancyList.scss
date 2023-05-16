@@ -1,6 +1,19 @@
 .vacancy-list {
+  max-width: 773px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 40px;
+}
+
+@media (max-width: 767px) {
+  .vacancy-list {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
 }

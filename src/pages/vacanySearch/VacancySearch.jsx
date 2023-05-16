@@ -10,6 +10,7 @@ import ErrorMessage from "../../components/errorBoundary/ErrorMessage";
 import './vacancySearch.scss'
 
 const VacancySearch = () => {
+  const [update, setUpdate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1)
   const [vacancies, setVacancies] = useState([])
   const [total, setTotal] = useState(0)
@@ -17,16 +18,17 @@ const VacancySearch = () => {
   const { payment_to, payment_from, profession, keywords } = useSelector(state => state.vacancies.filters)
 
   useEffect(() => {
+    setCurrentPage(1)
+    setUpdate(v => !v)
+  }, [payment_from, payment_to, profession, keywords])
+
+  useEffect(() => {
     getVacancies(currentPage, payment_from, payment_to, profession, keywords)
       .then(data => {
         setVacancies(data.vacancies)
         setTotal(data.total > 500 ? 125 : Math.ceil(data.total / 4))
       })
-  }, [currentPage, payment_to, payment_from, profession, keywords])
-
-  // useEffect(() => {
-  //   setCurrentPage(1)
-  // }, [payment_from, payment_to, profession, keywords])
+  }, [currentPage, update])
 
   return (
     <div className="vacancy-search">

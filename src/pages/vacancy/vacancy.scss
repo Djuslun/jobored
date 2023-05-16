@@ -21,16 +21,20 @@
     margin-bottom: 20px;
   }
 
-  &__list-item {}
+  &__list-item {
+    display: flex;
+    align-items: center;
+    line-height: 1.4;
+  }
 
-  // &__list-item::before {
-  //   flex: 0 0 5px;
-  //   margin-right: 8px;
-  //   content: '';
-  //   display: block;
-  //   width: 5px;
-  //   height: 5px;
-  //   border-radius: 50%;
-  //   background-color: #000;
-  // }
+  &__list-item::before {
+    flex: 0 0 5px;
+    margin-right: 8px;
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #000;
+  }
 }

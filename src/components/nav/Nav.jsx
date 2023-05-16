@@ -7,7 +7,7 @@ const Nav = ({ }) => {
   return (
     <nav className="nav">
       <ul className="nav__list">
-        <li><NavLink to={'/'} className={activeClass}>Поиск Вакансий</NavLink></li>
+        <li><NavLink to={'/vacancy'} className={activeClass}>Поиск Вакансий</NavLink></li>
         <li><NavLink to={'/favorite'} className={activeClass}>Избранное</NavLink></li>
       </ul>
     </nav>

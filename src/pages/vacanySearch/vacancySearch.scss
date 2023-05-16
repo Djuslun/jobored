@@ -7,3 +7,15 @@
     flex: 0 1 773px;
   }
 }
+
+@media (max-width:767px) {
+  .vacancy-search {
+    flex-direction: column;
+    gap: 24px;
+
+    &__body {
+      width: 100%;
+      flex: 0 1 auto;
+    }
+  }
+}
