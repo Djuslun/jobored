@@ -38,3 +38,39 @@
     background-color: #000;
   }
 }
+
+@media (max-width: 767px) {
+  .vacancy-page {
+    gap: 16px;
+    font-size: 14px;
+
+    &__body {
+      padding: 16px;
+    }
+
+    &__p {
+      margin-bottom: 4px;
+    }
+
+    &__list {
+      margin-bottom: 8px;
+    }
+
+    &__list-item {
+      display: flex;
+      align-items: center;
+      line-height: 1.1;
+    }
+  }
+}
+
+@media (max-width: 424px) {
+  .vacancy-page {
+    gap: 12px;
+    font-size: 12px;
+
+    &__list {
+      margin-bottom: 8px;
+    }
+  }
+}

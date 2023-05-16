@@ -1,17 +1,18 @@
 import SearchingMan from '../../assets/SearcingMan.svg'
 import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
+import './favoriteEmptyState.scss'
 
 const FavoriteEmptyState = ({ }) => {
 
   return (
-    <>
-      <img src={SearchingMan} alt="SearchingMan" width={240} height={230} />
-      <p>Упс, здесь еще ничего нет!</p>
-      <Link to={'/'}>
-        <Button>Поиск Вакансий</Button>
+    <div className='favorite-empty'>
+      <img className='favorite-empty__image' src={SearchingMan} alt="SearchingMan" width={240} height={230} />
+      <p className='favorite-empty__text'>Упс, здесь еще ничего нет!</p>
+      <Link to={'/vacancy'}>
+        <Button className='favorite-empty__button'>Поиск Вакансий</Button>
       </Link>
-    </>
+    </div>
   )
 }
 

@@ -154,24 +154,22 @@
     font-size: 12px;
 
     &__title {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       font-size: 16px;
       line-height: 20px;
 
       &--single {
-        margin-bottom: 16px;
-        font-size: 28px;
-        line-height: 34px;
-        font-weight: 700;
-        color: $black;
+        margin-bottom: 8px;
+        font-size: 20px;
+        line-height: 28px;
       }
     }
 
     &__salary-box {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
 
       &--single {
-        font-size: 16px;
+        font-size: 13px;
       }
     }
   }
@@ -189,19 +187,17 @@
       line-height: 20px;
 
       &--single {
-        margin-bottom: 16px;
-        font-size: 28px;
-        line-height: 34px;
-        font-weight: 700;
-        color: $black;
+        margin-bottom: 8px;
+        font-size: 16px;
+        line-height: 20px;
       }
     }
 
     &__salary-box {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
 
       &--single {
-        font-size: 16px;
+        font-size: 8px;
       }
     }
 
