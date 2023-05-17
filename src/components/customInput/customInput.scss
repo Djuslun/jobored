@@ -83,3 +83,11 @@
     }
   }
 }
+
+@media (max-width:424px) {
+  .form-keywords {
+    .mantine-Input-input {
+      font-size: 10px;
+    }
+  }
+}

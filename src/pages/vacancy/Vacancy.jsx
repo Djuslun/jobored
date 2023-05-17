@@ -4,7 +4,6 @@ import VacancyItem from '../../components/vacancyItem/VacancyItem';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner/Spinner';
 import useVacanciesService from '../../servises/vacanciesServise';
-import { parseOptions } from '../../utils/variable';
 import './vacancy.scss'
 
 const Vacancy = () => {
@@ -20,7 +19,7 @@ const Vacancy = () => {
 
   useEffect(() => {
     if (vacancyItem.vacancyRichText) {
-      setVacancy(parse(vacancyItem.vacancyRichText, parseOptions))
+      setVacancy(parse(vacancyItem.vacancyRichText))
     }
   }, [vacancyItem])
 

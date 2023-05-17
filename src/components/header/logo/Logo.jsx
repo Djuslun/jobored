@@ -1,4 +1,4 @@
-import logo from '../../assets/Union.svg'
+import logo from '../../../assets/Union.svg'
 import './logo.scss'
 
 const Logo = () => {

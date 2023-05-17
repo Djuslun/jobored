@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import Logo from "../logo/Logo"
-import Nav from "../nav/Nav"
+import Logo from "./logo/Logo"
+import Nav from "./nav/Nav"
 import { Burger } from "@mantine/core"
 import { useDisclosure } from '@mantine/hooks';
 import './header.scss'
