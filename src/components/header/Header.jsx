@@ -3,10 +3,17 @@ import Logo from "./logo/Logo"
 import Nav from "./nav/Nav"
 import { Burger } from "@mantine/core"
 import { useDisclosure } from '@mantine/hooks';
+import classNames from "classnames";
 import './header.scss'
 
 const Header = () => {
-  const [opened, { toggle }] = useDisclosure(false);
+  const [opened, { toggle, close }] = useDisclosure(false);
+  const openClass = classNames({ 'nav__active': opened })
+
+  const handleToggleMenu = () => {
+    toggle()
+    document.body.style.overflow = opened ? 'visible' : "hidden";
+  }
 
   return (
     <header className="header">
@@ -14,8 +21,8 @@ const Header = () => {
         <Link className="header__logo" to={'/vacancy'}>
           <Logo />
         </Link>
-        <Nav />
-        <Burger opened={opened} onClick={toggle}></Burger>
+        <Nav openClass={openClass} onClick={(handleToggleMenu)} />
+        <Burger opened={opened} onClick={handleToggleMenu}></Burger>
       </div>
     </header>
   )

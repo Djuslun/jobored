@@ -13,36 +13,62 @@ const FilterForm = () => {
   const [profession, setProfession] = useState('')
   const [payment_from, setPayment_from] = useState('')
   const [payment_to, setPayment_to] = useState('')
+  const [validError, setValidError] = useState(false);
 
   useEffect(() => {
     setProfession(prof)
     setPayment_from(pay_from)
     setPayment_to(pay_to)
+    setValidError(false)
   }, [prof, pay_from, pay_to])
+
+  useEffect(() => {
+    validatePayment()
+  }, [payment_from, payment_to])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(filtersSet({ profession, payment_from, payment_to }))
+    setValidError(false)
+    const isPaymentValid = (payment_from && payment_to && (+payment_to >= +payment_from)) || !(payment_from && payment_to)
+    if (isPaymentValid) {
+      dispatch(filtersSet({ profession, payment_from, payment_to }))
+    } else {
+      setValidError(true)
+    }
   }
 
   const handleReset = () => dispatch(filtersReset())
 
+  const validatePayment = () => {
+    const isPaymentValid = (payment_from && payment_to && (+payment_to >= +payment_from)) || !(payment_from && payment_to)
+    if (isPaymentValid) {
+      setValidError(false)
+    } else {
+      setValidError(true)
+    }
+  }
+
+  // const handleChange = (value, setFunc) => setFunc(value)
+
   return (
-    <View
-      handleSubmit={handleSubmit}
-      handleReset={handleReset}
-      profession={profession}
-      payment_from={payment_from}
-      payment_to={payment_to}
-      setProfession={setProfession}
-      setPayment_from={setPayment_from}
-      setPayment_to={setPayment_to} />
+    <>
+      <View
+        handleSubmit={handleSubmit}
+        handleReset={handleReset}
+        profession={profession}
+        payment_from={payment_from}
+        payment_to={payment_to}
+        setProfession={setProfession}
+        setPayment_from={setPayment_from}
+        setPayment_to={setPayment_to}
+        validError={validError} />
+    </>
   )
 }
 
 export default FilterForm
 
-const View = ({ handleSubmit, handleReset, profession, payment_from, payment_to, setProfession, setPayment_from, setPayment_to }) => {
+const View = ({ handleSubmit, handleReset, profession, payment_from, payment_to, setProfession, setPayment_from, setPayment_to, validError }) => {
   return (
     <form className='form' onSubmit={handleSubmit}>
       <div className="form__title-box">
@@ -61,6 +87,13 @@ const View = ({ handleSubmit, handleReset, profession, payment_from, payment_to,
         <CustomInputNumber placeholder={'До'} value={payment_to} onChange={setPayment_to} />
       </div>
       <Button type='submit'>Применить</Button>
+      {validError && <ValidError />}
     </form>
+  )
+}
+
+const ValidError = () => {
+  return (
+    <div className='invalid'>Проверьте оклад</div>
   )
 }

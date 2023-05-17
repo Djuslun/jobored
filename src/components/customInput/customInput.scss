@@ -17,7 +17,7 @@
 
   .mantine-Input-rightSection {
     position: absolute;
-    right: 17px;
+    right: 34px;
   }
 
   .mantine-Button-root {
@@ -52,7 +52,7 @@
     }
 
     .mantine-Input-rightSection {
-      right: 12px;
+      right: 22px;
     }
 
     .mantine-Button-label {
@@ -73,6 +73,10 @@
       height: 30px;
     }
 
+    .mantine-Input-rightSection {
+      right: 17px;
+    }
+
     .mantine-Button-label {
       font-size: 10px;
       padding: 0 12px;
@@ -88,6 +92,10 @@
   .form-keywords {
     .mantine-Input-input {
       font-size: 10px;
+    }
+
+    .mantine-Input-rightSection {
+      right: 12px;
     }
   }
 }

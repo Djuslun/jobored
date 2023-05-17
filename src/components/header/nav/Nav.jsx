@@ -1,14 +1,14 @@
 import { NavLink } from "react-router-dom"
 import './nav.scss'
 
-const Nav = ({ }) => {
+const Nav = ({ openClass, onClick }) => {
   const activeClass = ({ isActive }) => isActive ? "nav__link nav__link--active" : "nav__link"
 
   return (
-    <nav className="nav">
-      <ul className="nav__list">
-        <li><NavLink to={'/vacancy'} className={activeClass}>Поиск Вакансий</NavLink></li>
-        <li><NavLink to={'/favorite'} className={activeClass}>Избранное</NavLink></li>
+    <nav className={`nav ${openClass}`} onClick={onClick}>
+      <ul className="nav__list" onClick={(e) => e.stopPropagation()}>
+        <li><NavLink to={'/vacancy'} onClick={onClick} className={activeClass}>Поиск Вакансий</NavLink></li>
+        <li><NavLink to={'/favorite'} onClick={onClick} className={activeClass}>Избранное</NavLink></li>
       </ul>
     </nav>
   )
