@@ -94,6 +94,6 @@ const View = ({ handleSubmit, handleReset, profession, payment_from, payment_to,
 
 const ValidError = () => {
   return (
-    <div className='invalid'>Проверьте оклад</div>
+    <div className='invalid'>Проверьте оклад. Оклад 'До' должен быть выше чем 'От' </div>
   )
 }
