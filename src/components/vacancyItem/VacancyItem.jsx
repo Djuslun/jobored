@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { favoriteVacancyToggle } from "../../redux/vacanciesSlice";
@@ -7,10 +8,16 @@ import './vacancyItem.scss'
 
 const VacancyItem = ({ currency, payment_from, payment_to, profession, type_of_work, town, id, isSingleVacancy }) => {
   const dispatch = useDispatch()
-
+  const [isFavorite, setIsFavorite] = useState(false);
   const { favoriteIDs } = useSelector(store => store.vacancies)
 
-  const isFavorite = favoriteIDs.includes(id)
+  useEffect(() => {
+    if (favoriteIDs) {
+      setIsFavorite(favoriteIDs.includes(id))
+    }
+  }, [favoriteIDs])
+
+
 
   const favoriteClass = classNames("vacancy__favorite", { favorite: isFavorite })
 

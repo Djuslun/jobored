@@ -41,8 +41,11 @@ const vacanciesSlice = createSlice({
       }
       localStorage.setItem('favorites', JSON.stringify(state.favoriteIDs))
     },
-    favoriteVacanciesSet: (state, action) => {
-      state.favoriteIDs = JSON.parse(localStorage.getItem('favorites'))
+    favoriteVacanciesSet: (state) => {
+      const favorites = JSON.parse(localStorage.getItem('favorites'))
+      if (favorites) {
+        state.favoriteIDs = favorites
+      }
     },
     filtersSet: (state, action) => {
       const { profession, payment_from, payment_to } = action.payload
