@@ -1,7 +1,7 @@
 import AppRouter from "../../router"
 import './main.scss'
 
-const Main = ({ }) => {
+const Main = () => {
 
   return (
     <main className='main'>
@@ -10,4 +10,5 @@ const Main = ({ }) => {
       </div>
     </main>)
 }
+
 export default Main

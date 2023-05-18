@@ -3,7 +3,7 @@ import { Button } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import './favoriteEmptyState.scss'
 
-const FavoriteEmptyState = ({ }) => {
+const FavoriteEmptyState = () => {
 
   return (
     <div className='favorite-empty'>

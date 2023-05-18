@@ -5,7 +5,7 @@ import searchIcon from '../../assets/Search.svg'
 import { useDispatch, useSelector } from 'react-redux';
 import { keywordsSet } from '../../redux/vacanciesSlice';
 
-const CustomInput = ({ }) => {
+const CustomInput = () => {
   const [keywords, setKeywords] = useState('');
   const dispatch = useDispatch()
   const { keywords: keywordsValue } = useSelector(state => state.vacancies.filters)
