@@ -83,8 +83,8 @@ const View = ({ handleSubmit, handleReset, profession, payment_from, payment_to,
       </label>
       <div className="form__filter filter">
         <p className='filter__title'>Оклад</p>
-        <CustomInputNumber placeholder={'От'} value={payment_from} onChange={setPayment_from} />
-        <CustomInputNumber placeholder={'До'} value={payment_to} onChange={setPayment_to} />
+        <CustomInputNumber placeholder={'От'} value={payment_from} onChange={setPayment_from} data={'salary-from-input'} />
+        <CustomInputNumber placeholder={'До'} value={payment_to} onChange={setPayment_to} data={'salary-to-input'} />
       </div>
       <Button type='submit'>Применить</Button>
       {validError && <ValidError />}

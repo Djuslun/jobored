@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NumberInput } from '@mantine/core';
 import InputNumberControls from '../inputNumberControls/InputNumberControls';
 
-const CustomInputNumber = ({ placeholder, value, onChange }) => {
+const CustomInputNumber = ({ placeholder, value, onChange, data }) => {
 
   const handleIncrement = () => {
     !value && onChange(0);
@@ -20,6 +20,7 @@ const CustomInputNumber = ({ placeholder, value, onChange }) => {
 
   return (
     <NumberInput
+      data-elem={data}
       min={0}
       step={1000}
       value={value}

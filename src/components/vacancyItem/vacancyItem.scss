@@ -39,6 +39,7 @@
     transition: all 0.2s;
     fill: #fff;
     color: #ACADB9;
+    cursor: pointer;
   }
 
   &__favorite:hover {
@@ -125,11 +126,6 @@
       &--single {
         font-size: 20px;
       }
-    }
-
-    &__salary {
-
-      &--single {}
     }
 
     &__salary::after {

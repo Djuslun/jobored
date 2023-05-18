@@ -8,7 +8,7 @@ const VacancyList = ({ vacancies }) => {
 
   return (
     <ul className="vacancy-list">
-      {elems.length ? elems : ''}
+      {elems.length ? elems : <div className="vacancy-list__empty">Нет вакансий по вашему запросу</div>}
     </ul>
   )
 }

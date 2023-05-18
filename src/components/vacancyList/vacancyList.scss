@@ -1,3 +1,6 @@
+@import '../../styles/variables';
+@import '../../assets/fonts/fonts';
+
 .vacancy-list {
   max-width: 773px;
   margin: 0 auto;
@@ -5,6 +8,15 @@
   flex-direction: column;
   gap: 16px;
   margin-bottom: 40px;
+
+  &__empty {
+    padding: 20px 0;
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: $white;
+  }
 }
 
 @media (max-width: 767px) {

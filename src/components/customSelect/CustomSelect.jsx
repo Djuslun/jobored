@@ -14,6 +14,7 @@ const CustomSelect = ({ onSearchChange, value }) => {
 
   return (
     <Select
+      data-elem="industry-select"
       opened={opened ? 1 : 0}
       onDropdownOpen={() => setOpened(true)}
       onDropdownClose={() => setOpened(null)}

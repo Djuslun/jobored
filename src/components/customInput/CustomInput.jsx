@@ -29,11 +29,12 @@ const CustomInput = () => {
   return (
     <form className='form-keywords' onSubmit={handleSubmit}>
       <Input
+        data-elem="search-input"
         value={keywords}
         onChange={e => setKeywords(e.target.value)}
         icon={<SearchIcon />}
         placeholder="Введите название вакансии"
-        rightSection={<Button ref={buttonRef} type='submit'>Поиск</Button>}
+        rightSection={<Button ref={buttonRef} type='submit' data-elem="search-button">Поиск</Button>}
         rightSectionWidth={buttonRef.current ? buttonRef.current.offsetWidth : undefined}
         styles={styles}
       />

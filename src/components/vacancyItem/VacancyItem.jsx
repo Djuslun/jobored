@@ -30,12 +30,17 @@ const VacancyItem = ({ currency, payment_from, payment_to, profession, type_of_w
   const itemSalaryBoxStyles = classNames('vacancy__salary-box', { 'vacancy__salary-box--single': isSingleVacancy })
 
   return (
-    <li className="vacancy">
+    <li className="vacancy" data-elem={`vacancy-${id}`}>
       <div className='vacancy__title-box'>
         <Link to={`/vacancy/${id}`}>
           <h3 className={itemTitleStyles}>{profession}</h3>
         </Link>
-        <Star className={favoriteClass} width={24} height={24} onClick={() => dispatch(favoriteVacancyToggle(id))} />
+        <Star
+          className={favoriteClass}
+          width={24}
+          height={24}
+          onClick={() => dispatch(favoriteVacancyToggle(id))}
+          data-elem={`vacancy-${id}-shortlist-button`} />
       </div>
       <div className={itemSalaryBoxStyles}>
         <p className={itemSalaryStyles}>{salary}</p>

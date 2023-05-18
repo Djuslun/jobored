@@ -29,7 +29,7 @@ const useVacanciesService = () => {
   }
 
   const getFavoriteVacacies = async (page) => {
-    const favoriteIDs = JSON.parse(localStorage.getItem('favorites'))
+    const favoriteIDs = JSON.parse(localStorage.getItem('favorites')) || []
     const ids = favoriteIDs.map(item => `ids[]=${item}`).join('&') || `ids[]=`
     const res = await request(`${BASE_URL}vacancies/?${ids}&page=${page - 1}&count=4`, headers)
     const vacancies = _transformVacancies(res.objects)
