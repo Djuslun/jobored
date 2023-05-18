@@ -48,8 +48,6 @@ const FilterForm = () => {
     }
   }
 
-  // const handleChange = (value, setFunc) => setFunc(value)
-
   return (
     <>
       <View
@@ -83,10 +81,18 @@ const View = ({ handleSubmit, handleReset, profession, payment_from, payment_to,
       </label>
       <div className="form__filter filter">
         <p className='filter__title'>Оклад</p>
-        <CustomInputNumber placeholder={'От'} value={payment_from} onChange={setPayment_from} data={'salary-from-input'} />
-        <CustomInputNumber placeholder={'До'} value={payment_to} onChange={setPayment_to} data={'salary-to-input'} />
+        <CustomInputNumber
+          placeholder={'От'}
+          value={payment_from}
+          onChange={setPayment_from}
+          data={'salary-from-input'} />
+        <CustomInputNumber
+          placeholder={'До'}
+          value={payment_to}
+          onChange={setPayment_to}
+          data={'salary-to-input'} />
       </div>
-      <Button type='submit'>Применить</Button>
+      <Button type='submit' data-elem="search-button" >Применить</Button>
       {validError && <ValidError />}
     </form>
   )
