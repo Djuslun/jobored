@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import SelectArrow from '../selectArrow/SelectArrow';
+import SelectArrow from './selectArrow/SelectArrow';
 import { Select } from '@mantine/core';
-// import { ReactComponent as ArrowDown } from '../../assets/arrowDown.svg'
 
 const CustomSelect = ({ onSearchChange, value }) => {
   const [opened, setOpened] = useState(null);

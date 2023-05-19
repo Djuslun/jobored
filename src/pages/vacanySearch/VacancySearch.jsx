@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Spinner } from "../../components/spinner/Spinner";
 import useVacanciesService from "../../servises/vacanciesServise";
 import Vacancies from "../../components/vacancies/Vacancies";
-import ErrorMessage from "../../components/errorBoundary/ErrorMessage";
+import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import './vacancySearch.scss'
 
 const VacancySearch = () => {

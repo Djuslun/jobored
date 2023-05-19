@@ -1,14 +1,15 @@
+import authParams from '../utils/variable'
+const { BASE_URL, client_secret, x_secret_key } = authParams
+
 export const getCatalogues = () => {
 
   const request = async () => {
-    const BASE_URL = 'https://startup-summer-2023-proxy.onrender.com/2.0/'
-
     try {
       const response = await fetch(`${BASE_URL}catalogues/`,
         {
           headers: {
-            'x-secret-key': 'GEU4nvd3rej*jeh.eqp',
-            'x-api-app-id': 'v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948'
+            'x-secret-key': `${x_secret_key}`,
+            'x-api-app-id': `${client_secret}`
           }
         });
 

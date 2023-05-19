@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@mantine/core';
-import CustomInputNumber from '../customInputNumber/CustomInputNumber';
-import CustomSelect from '../customSelect/CustomSelect';
+import CustomInputNumber from './customInputNumber/CustomInputNumber';
+import CustomSelect from './customSelect/CustomSelect';
 import { useDispatch, useSelector } from 'react-redux';
 import { filtersSet, filtersReset } from '../../redux/vacanciesSlice';
 import './filterForm.scss'

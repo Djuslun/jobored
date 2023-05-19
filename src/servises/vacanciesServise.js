@@ -1,13 +1,13 @@
 import { useHttp } from "../hooks/http.hook";
+import authParams from '../utils/variable'
+const { _baseCount, BASE_URL, client_secret, x_secret_key } = authParams
 
 const useVacanciesService = () => {
-  const _baseCount = 4
   const { loadingStatus, request } = useHttp()
   const token = JSON.parse(localStorage.getItem('token'))
-  const BASE_URL = 'https://startup-summer-2023-proxy.onrender.com/2.0/'
   const headers = {
-    'x-secret-key': 'GEU4nvd3rej*jeh.eqp',
-    'x-api-app-id': 'v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948',
+    'x-secret-key': `${x_secret_key}`,
+    'x-api-app-id': `${client_secret}`,
     'Authorization': `${token.token_type} ${token.access_token}`,
     'Content-Type': 'application/json'
   }

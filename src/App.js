@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchToken, favoriteVacanciesSet, fetchCatalogues } from './redux/vacanciesSlice';
 import { useEffect } from 'react';
 import { Spinner } from './components/spinner/Spinner';
+import ErrorMessage from './components/errorMessage/ErrorMessage';
 
 function App() {
   const dispatch = useDispatch()
@@ -25,7 +26,6 @@ function App() {
 
 export default App;
 
-
 const view = {
   'ok':
     <>
@@ -33,5 +33,5 @@ const view = {
       <Main />
     </>,
   'loading': <Spinner />,
-  'error': 'Error'
+  'error': <ErrorMessage />
 }

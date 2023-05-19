@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { NumberInput } from '@mantine/core';
-import InputNumberControls from '../inputNumberControls/InputNumberControls';
+import InputNumberControls from './inputNumberControls/InputNumberControls';
 
 const CustomInputNumber = ({ placeholder, value, onChange, data }) => {
 

@@ -1,4 +1,4 @@
-import { ReactComponent as Arrow } from '../../assets/arrowDown.svg'
+import { ReactComponent as Arrow } from '../../../../assets/arrowDown.svg'
 import './inputNumberControl.scss'
 const InputNumberControls = ({ inc, dec }) => {
 

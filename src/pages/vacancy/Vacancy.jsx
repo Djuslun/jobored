@@ -4,6 +4,7 @@ import VacancyItem from '../../components/vacancyItem/VacancyItem';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner/Spinner';
 import useVacanciesService from '../../servises/vacanciesServise';
+import ErrorMessage from '../../components/errorMessage/ErrorMessage';
 import './vacancy.scss'
 
 const Vacancy = () => {
@@ -38,7 +39,7 @@ export default Vacancy
 const View = ({ loadingStatus, vacancyItem, vacancy }) => {
   switch (loadingStatus) {
     case 'loading': return <Spinner />
-    case 'error': return 'Error'
+    case 'error': return <ErrorMessage />
     case 'ok': {
       return (
         <div className='vacancy-page'>

@@ -1,4 +1,4 @@
-import { ReactComponent as ArrowDown } from '../../assets/arrowDown.svg'
+import { ReactComponent as ArrowDown } from '../../../../assets/arrowDown.svg'
 import './selectArrow.scss'
 
 const SelectArrow = ({ opened }) => {
