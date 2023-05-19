@@ -6,6 +6,8 @@ import { fetchToken, favoriteVacanciesSet, fetchCatalogues } from './redux/vacan
 import { useEffect } from 'react';
 import { Spinner } from './components/spinner/Spinner';
 import ErrorMessage from './components/errorMessage/ErrorMessage';
+import './styles/_app.scss';
+
 
 function App() {
   const dispatch = useDispatch()
@@ -19,7 +21,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      {view[tokenLoadingStatus]}
+      <div className="app">
+        {view[tokenLoadingStatus]}
+      </div>
     </BrowserRouter >
   );
 }

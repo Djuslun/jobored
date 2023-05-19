@@ -74,6 +74,10 @@
     }
   }
 
+  .mantine-Select-rightSection {
+    right: 7px;
+  }
+
   .mantine-NumberInput-root:not(:last-child) {
     margin-bottom: 8px;
   }
@@ -89,6 +93,10 @@
     &:focus {
       border: 1px solid $blue-500;
     }
+  }
+
+  .mantine-NumberInput-rightSection {
+    right: 6px;
   }
 
   .mantine-Button-root {

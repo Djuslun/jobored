@@ -1,5 +1,5 @@
 import { Pagination } from '@mantine/core';
-import './pagination.scss'
+import './vacancies.scss'
 
 const Vacancies = ({ children, currentPage, total, setCurrentPage }) => {
 

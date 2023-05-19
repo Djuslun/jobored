@@ -8,7 +8,8 @@ const Main = () => {
       <div className="main__container">
         <AppRouter />
       </div>
-    </main>)
+    </main>
+  )
 }
 
 export default Main

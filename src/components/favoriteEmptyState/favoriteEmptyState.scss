@@ -16,14 +16,24 @@
     font-family: Inter, sans-serif;
     font-weight: 700;
     font-size: 24px;
+    line-height: 29px;
   }
 
   &__button {
     transition: all 0.3s;
     font-family: Open Sans;
+    font-size: 14px;
     border-radius: 8px;
     background-color: $blue-100;
     color: $blue-600;
+  }
+
+  .mantine-Button-root {
+    height: 42px;
+  }
+
+  .mantine-Button-label {
+    padding: 10px;
   }
 
   .mantine-Button-root:hover {
