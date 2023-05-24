@@ -2,6 +2,7 @@ import { useHttp } from "../hooks/http.hook";
 import authParams from '../utils/variable'
 const { _baseCount, BASE_URL, client_secret, x_secret_key } = authParams
 
+
 const useVacanciesService = () => {
   const { loadingStatus, request } = useHttp()
   const token = JSON.parse(localStorage.getItem('token'))
@@ -14,9 +15,19 @@ const useVacanciesService = () => {
 
   const getVacancies = async (page, payment_from = '', payment_to = '', profession = '', keyword = '') => {
     const no_agreement = (payment_from || payment_to) ? '1' : ''
-    const res = await request(
-      `${BASE_URL}vacancies/?published=1&page=${page - 1}&count=${_baseCount}&payment_from=${payment_from}&payment_to=${payment_to}&keyword=${keyword}&catalogues=${profession}&no_agreement=${no_agreement}/`,
-      headers)
+
+    const params = {
+      published: 1,
+      page: `${page - 1}`,
+      count: `${_baseCount}`,
+      payment_from: `${payment_from}`,
+      payment_to: `${payment_to}`,
+      keyword: `${keyword}`,
+      catalogues: `${profession}`,
+      no_agreement: `${no_agreement}`
+    }
+
+    const res = await request(`${BASE_URL}vacancies/`, headers, params)
     const vacancies = _transformVacancies(res.objects)
 
     return { vacancies, total: res.total }
@@ -31,7 +42,13 @@ const useVacanciesService = () => {
   const getFavoriteVacacies = async (page) => {
     const favoriteIDs = JSON.parse(localStorage.getItem('favorites')) || []
     const ids = favoriteIDs.map(item => `ids[]=${item}`).join('&') || `ids[]=`
-    const res = await request(`${BASE_URL}vacancies/?${ids}&page=${page - 1}&count=4`, headers)
+    const params = {
+      page: `${page - 1}`,
+      count: `${_baseCount}`
+    }
+
+    const res = await request(`${BASE_URL}vacancies/?${ids}`, headers, params)
+    console.log(res)
     const vacancies = _transformVacancies(res.objects)
 
     return { vacancies, total: res.total }

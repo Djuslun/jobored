@@ -1,23 +1,17 @@
 import { useState, useCallback } from "react";
-
+import axios from 'axios';
 export const useHttp = () => {
   const [loadingStatus, setLoadingStatus] = useState('');
 
-  const request = useCallback(async (url, headers) => {
+  const request = useCallback(async (url, headers, params) => {
     setLoadingStatus('loading');
 
     try {
-      const response = await fetch(url, { headers });
-
-      if (!response.ok) {
-        throw new Error(`Could not fetch ${url}, status: ${response.status}`);
-      }
-
-      const data = await response.json();
+      const response = await axios.get(url, { headers, params });
 
       setLoadingStatus('ok');
 
-      return data;
+      return response.data;
     } catch (e) {
       setLoadingStatus('error');
       throw e;
