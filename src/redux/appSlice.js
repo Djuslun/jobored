@@ -19,6 +19,7 @@ export const fetchCatalogues = createAsyncThunk(
 
 const initialState = appAdapter.getInitialState({
   tokenLoadingStatus: 'idle',
+  cataloguesLoadingStatus: 'idle',
   catalogues: []
 })
 
@@ -38,12 +39,17 @@ const appSlice = createSlice({
       .addCase(fetchToken.rejected, (state) => {
         state.tokenLoadingStatus = 'error'
       })
+      .addCase(fetchCatalogues.pending, (state) => {
+        state.cataloguesLoadingStatus = 'loading'
+      })
       .addCase(fetchCatalogues.fulfilled, (state, action) => {
         const catalogues = action.payload.map(item => ({ label: item.title_trimmed, value: item.key }))
-        state.catalogues = catalogues;
+        state.catalogues = catalogues
+        state.cataloguesLoadingStatus = 'ok'
       })
-      .addCase(fetchCatalogues.rejected, () => {
+      .addCase(fetchCatalogues.rejected, (state) => {
         console.log('Coudn`t fetch catalogues')
+        state.cataloguesLoadingStatus = 'error'
       })
       .addDefaultCase(() => { })
   }

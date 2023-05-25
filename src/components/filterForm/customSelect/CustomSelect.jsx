@@ -4,7 +4,7 @@ import SelectArrow from './selectArrow/SelectArrow';
 import { Select } from '@mantine/core';
 
 const CustomSelect = ({ onSearchChange, value }) => {
-  const [opened, setOpened] = useState(null);
+  const [opened, setOpened] = useState(false);
   const options = useSelector(state => state.appReducer.catalogues)
 
   const handleChange = (profession) => {
@@ -16,7 +16,7 @@ const CustomSelect = ({ onSearchChange, value }) => {
       data-elem="industry-select"
       opened={opened ? 1 : 0}
       onDropdownOpen={() => setOpened(true)}
-      onDropdownClose={() => setOpened(null)}
+      onDropdownClose={() => setOpened(false)}
       placeholder='Выберете отрасль'
       data={options}
       rightSection={<SelectArrow opened={opened} />}
