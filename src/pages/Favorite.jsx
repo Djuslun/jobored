@@ -20,6 +20,12 @@ const Favorite = () => {
     dispatch(fetchFavorites(currentPage))
   }, [currentPage])
 
+  useEffect(() => {
+    if (currentPage > total) {
+      setCurrentPage(total)
+    }
+  }, [total])
+
   return (
     <Vacancies currentPage={currentPage} total={total} setCurrentPage={setCurrentPage}>
       <View

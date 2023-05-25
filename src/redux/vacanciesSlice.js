@@ -27,12 +27,12 @@ const favoritesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchVacancies.pending, (state) => {
+        state.total = 0
         state.loadingStatus = 'loading'
       })
       .addCase(fetchVacancies.fulfilled, (state, action) => {
         const { objects, total } = action.payload
         const data = _transformVacancies(objects)
-
         vacanciesAdapter.setAll(state, data)
         state.loadingStatus = 'ok'
         state.total = total > 500 ? 125 : Math.ceil(total / 4)
