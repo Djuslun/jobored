@@ -1,93 +1,56 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import { getAccsesKey } from "../servises/getAccsesKey";
-import { getCatalogues } from "../servises/getCatalogues";
+import { createSlice, createAsyncThunk, createEntityAdapter, createSelector } from "@reduxjs/toolkit";
+import useVacanciesService from "../servises/vacanciesServise";
+import { _transformVacancies } from "../servises/transformVacancies";
 
 const vacanciesAdapter = createEntityAdapter()
 
-export const fetchToken = createAsyncThunk(
-  'vacancies/fetchToken',
-  () => getAccsesKey()
-)
+export const fetchVacancies = createAsyncThunk(
+  'vacancies/fetchVacancies',
+  async ({ currentPage, payment_from, payment_to, profession, keywords }) => {
+    const { getVacancies } = useVacanciesService()
 
-export const fetchCatalogues = createAsyncThunk(
-  'vacancies/fetchCatalogues',
-  async () => {
-    const { request } = getCatalogues()
-    return await request()
+    return await getVacancies(currentPage, payment_from, payment_to, profession, keywords)
   }
 )
 
 const initialState = vacanciesAdapter.getInitialState({
-  tokenLoadingStatus: 'idle',
-  favoriteIDs: [],
-  filters: {
-    profession: '',
-    payment_from: '',
-    payment_to: '',
-    keywords: ''
-  },
-  catalogues: []
+  loadingStatus: 'idle',
+  total: 0
 })
 
-const vacanciesSlice = createSlice({
+const favoritesSlice = createSlice({
   name: 'vacancies',
   initialState,
   reducers: {
-    // favoriteVacancyToggle: (state, action) => {
-    //   if (state.favoriteIDs.includes(action.payload)) {
-    //     state.favoriteIDs = state.favoriteIDs.filter(id => id !== action.payload)
-    //   } else {
-    //     state.favoriteIDs.push(action.payload)
-    //   }
-    //   localStorage.setItem('favorites', JSON.stringify(state.favoriteIDs))
-    // },
-    // favoriteVacanciesSet: (state) => {
-    //   const favorites = JSON.parse(localStorage.getItem('favorites'))
-    //   if (favorites) {
-    //     state.favoriteIDs = favorites
-    //   }
-    // },
-    filtersSet: (state, action) => {
-      const { profession, payment_from, payment_to } = action.payload
-      state.filters = { ...state.filters, profession, payment_from, payment_to }
-    },
-    keywordsSet: (state, action) => {
-      state.filters.keywords = action.payload
-    },
-    filtersReset: (state) => {
-      state.filters = {
-        profession: '',
-        payment_from: '',
-        payment_to: '',
-        keywords: ''
-      }
-    }
+
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchToken.pending, (state) => {
-        state.tokenLoadingStatus = 'loading'
+      .addCase(fetchVacancies.pending, (state) => {
+        state.loadingStatus = 'loading'
       })
-      .addCase(fetchToken.fulfilled, (state) => {
-        state.tokenLoadingStatus = 'ok'
+      .addCase(fetchVacancies.fulfilled, (state, action) => {
+        const { objects, total } = action.payload
+        const data = _transformVacancies(objects)
+
+        vacanciesAdapter.setAll(state, data)
+        state.loadingStatus = 'ok'
+        state.total = total > 500 ? 125 : Math.ceil(total / 4)
       })
-      .addCase(fetchToken.rejected, (state) => {
-        state.tokenLoadingStatus = 'error'
-      })
-      .addCase(fetchCatalogues.fulfilled, (state, action) => {
-        state.catalogues = action.payload
-      })
-      .addCase(fetchCatalogues.rejected, () => {
-        console.log('Coudn`t fetch catalogues')
+      .addCase(fetchVacancies.rejected, (state) => {
+        state.loadingStatus = 'error'
       })
       .addDefaultCase(() => { })
   }
 })
 
-const { actions, reducer } = vacanciesSlice
+const { reducer: vacancies } = favoritesSlice
 
-export default reducer
+export default vacancies
 
-export const { selectAll, selectById } = vacanciesAdapter.getSelectors(state => state.vacancies)
+export const { selectAll } = vacanciesAdapter.getSelectors(state => state.vacancies)
 
-export const { pageChange, filtersSet, keywordsSet, filtersReset } = actions
+export const vacanciesSelector = createSelector(
+  selectAll,
+  favorites => favorites
+)

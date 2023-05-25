@@ -13,3 +13,16 @@ export const _transformVacancies = (data) => {
   }
   ))
 }
+
+export const _transformVacancy = (vacancy) => {
+  return {
+    vacancyRichText: vacancy.vacancyRichText,
+    currency: vacancy.currency,
+    payment_from: vacancy.payment_from,
+    payment_to: vacancy.payment_to,
+    profession: vacancy.profession,
+    type_of_work: vacancy.type_of_work.title,
+    town: vacancy.town.title,
+    id: vacancy.id
+  }
+}

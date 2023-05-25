@@ -3,19 +3,20 @@ import parse from 'html-react-parser';
 import VacancyItem from '../../components/vacancyItem/VacancyItem';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner/Spinner';
-import useVacanciesService from '../../servises/vacanciesServise';
 import ErrorMessage from '../../components/errorMessage/ErrorMessage';
+import { fetchVacancy } from '../../redux/vacancySlice';
+import { useDispatch, useSelector } from 'react-redux';
 import './vacancy.scss'
 
 const Vacancy = () => {
-  const { getVacancy, loadingStatus } = useVacanciesService()
+  const dispatch = useDispatch()
   const params = useParams()
-  const [vacancyItem, setVacancyItem] = useState({});
+  const vacancyItem = useSelector(state => state.vacancy.vacancy)
+  const loadingStatus = useSelector(state => state.vacancy.loadingStatus)
   const [vacancy, setVacancy] = useState('')
 
   useEffect(() => {
-    getVacancy(params.id)
-      .then(data => setVacancyItem(data))
+    dispatch(fetchVacancy(params.id))
   }, [])
 
   useEffect(() => {

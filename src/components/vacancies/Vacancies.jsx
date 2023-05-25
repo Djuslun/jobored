@@ -2,7 +2,6 @@ import { Pagination } from '@mantine/core';
 import './vacancies.scss'
 
 const Vacancies = ({ children, currentPage, total, setCurrentPage }) => {
-
   return (
     <>
       {children}

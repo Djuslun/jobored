@@ -5,7 +5,7 @@ import { Select } from '@mantine/core';
 
 const CustomSelect = ({ onSearchChange, value }) => {
   const [opened, setOpened] = useState(null);
-  const options = useSelector(state => state.vacancies.catalogues)
+  const options = useSelector(state => state.appReducer.catalogues)
 
   const handleChange = (profession) => {
     onSearchChange(profession)

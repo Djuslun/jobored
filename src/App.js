@@ -2,17 +2,17 @@ import { BrowserRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import Main from './components/main/Main';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchToken, fetchCatalogues } from './redux/vacanciesSlice';
 import { favoritesVacanciesSet } from './redux/favoriteSlice';
 import { useEffect } from 'react';
 import { Spinner } from './components/spinner/Spinner';
 import ErrorMessage from './components/errorMessage/ErrorMessage';
 import './styles/_app.scss';
+import { fetchToken, fetchCatalogues } from './redux/appSlice';
 
 
 function App() {
   const dispatch = useDispatch()
-  const { tokenLoadingStatus } = useSelector(store => store.vacancies)
+  const tokenLoadingStatus = useSelector(store => store.appReducer.tokenLoadingStatus)
 
   useEffect(() => {
     dispatch(fetchCatalogues())

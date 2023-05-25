@@ -2,20 +2,21 @@ import { useState, useEffect } from "react"
 import FilterForm from "../../components/filterForm/FilterForm"
 import VacancyList from "../../components/vacancyList/VacancyList"
 import CustomInput from "../../components/customInput/CustomInput"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Spinner } from "../../components/spinner/Spinner";
-import useVacanciesService from "../../servises/vacanciesServise";
 import Vacancies from "../../components/vacancies/Vacancies";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
+import { fetchVacancies, vacanciesSelector } from "../../redux/vacanciesSlice";
 import './vacancySearch.scss'
 
 const VacancySearch = () => {
+  const dispatch = useDispatch()
   const [update, setUpdate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1)
-  const [vacancies, setVacancies] = useState([])
-  const [total, setTotal] = useState(0)
-  const { loadingStatus, getVacancies } = useVacanciesService()
-  const { payment_to, payment_from, profession, keywords } = useSelector(state => state.vacancies.filters)
+  const { payment_to, payment_from, profession, keywords } = useSelector(state => state.filter.filter)
+  const total = useSelector(state => state.vacancies.total)
+  const loadingStatus = useSelector(state => state.vacancies.loadingStatus)
+  const vacancies = useSelector(vacanciesSelector)
 
   useEffect(() => {
     setCurrentPage(1)
@@ -23,11 +24,7 @@ const VacancySearch = () => {
   }, [payment_from, payment_to, profession, keywords])
 
   useEffect(() => {
-    getVacancies(currentPage, payment_from, payment_to, profession, keywords)
-      .then(data => {
-        setVacancies(data.vacancies)
-        setTotal(data.total > 500 ? 125 : Math.ceil(data.total / 4))
-      })
+    dispatch(fetchVacancies({ currentPage, payment_from, payment_to, profession, keywords }))
   }, [currentPage, update])
 
   return (

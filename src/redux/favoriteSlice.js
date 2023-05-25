@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createEntityAdapter, createSelector } from "@reduxjs/toolkit";
-import useFavoritesService from "../servises/favoriteServise";
+import useVacanciesService from "../servises/vacanciesServise";
 import { _transformVacancies } from "../servises/transformVacancies";
 
 const favoritesAdapter = createEntityAdapter()
@@ -7,7 +7,7 @@ const favoritesAdapter = createEntityAdapter()
 export const fetchFavorites = createAsyncThunk(
   'favorites/fetchFavorites',
   async (page = 1) => {
-    const { getFavoriteVacacies } = useFavoritesService()
+    const { getFavoriteVacacies } = useVacanciesService()
 
     return await getFavoriteVacacies(page)
   }

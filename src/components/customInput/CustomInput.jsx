@@ -3,12 +3,12 @@ import { Input, Button } from '@mantine/core';
 import './customInput.scss'
 import searchIcon from '../../assets/Search.svg'
 import { useDispatch, useSelector } from 'react-redux';
-import { keywordsSet } from '../../redux/vacanciesSlice';
+import { keywordsSet } from '../../redux/filtersSlice';
 
 const CustomInput = () => {
   const [keywords, setKeywords] = useState('');
   const dispatch = useDispatch()
-  const { keywords: keywordsValue } = useSelector(state => state.vacancies.filters)
+  const { keywords: keywordsValue } = useSelector(state => state.filter.filter)
   const buttonRef = useRef(null)
 
   useEffect(() => {

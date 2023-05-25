@@ -3,17 +3,19 @@ import { Button } from '@mantine/core';
 import CustomInputNumber from './customInputNumber/CustomInputNumber';
 import CustomSelect from './customSelect/CustomSelect';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtersSet, filtersReset } from '../../redux/vacanciesSlice';
+import { filtersSet, filtersReset } from '../../redux/filtersSlice';
 import './filterForm.scss'
 
 const FilterForm = () => {
   const dispatch = useDispatch()
-  const { payment_from: pay_from, payment_to: pay_to, profession: prof } = useSelector(state => state.vacancies.filters)
+  const { payment_from: pay_from, payment_to: pay_to, profession: prof } = useSelector(state => state.filter.filter)
 
   const [profession, setProfession] = useState('')
   const [payment_from, setPayment_from] = useState('')
   const [payment_to, setPayment_to] = useState('')
   const [validError, setValidError] = useState(false);
+
+  const isPaymentValid = (payment_from && payment_to && (+payment_to >= +payment_from)) || !(payment_from && payment_to)
 
   useEffect(() => {
     setProfession(prof)
@@ -28,25 +30,14 @@ const FilterForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    setValidError(false)
-    const isPaymentValid = (payment_from && payment_to && (+payment_to >= +payment_from)) || !(payment_from && payment_to)
     if (isPaymentValid) {
       dispatch(filtersSet({ profession, payment_from, payment_to }))
-    } else {
-      setValidError(true)
     }
   }
 
   const handleReset = () => dispatch(filtersReset())
 
-  const validatePayment = () => {
-    const isPaymentValid = (payment_from && payment_to && (+payment_to >= +payment_from)) || !(payment_from && payment_to)
-    if (isPaymentValid) {
-      setValidError(false)
-    } else {
-      setValidError(true)
-    }
-  }
+  const validatePayment = () => isPaymentValid ? setValidError(false) : setValidError(true)
 
   return (
     <>
