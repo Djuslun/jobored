@@ -6,7 +6,7 @@ const { _baseCount, BASE_URL } = authParams
 
 const useVacanciesService = () => {
   const request = useHttp()
-  const token = JSON.parse(localStorage.getItem('token'))
+  const token = JSON.parse(localStorage.getItem('token')) || ''
 
   const authHeader = {
     'Authorization': `${token.token_type} ${token.access_token}`,

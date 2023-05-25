@@ -26,9 +26,10 @@ function App() {
 
 
   useEffect(() => {
-    dispatch(fetchCatalogues())
     dispatch(favoritesVacanciesSet())
     dispatch(fetchToken())
+    dispatch(fetchCatalogues())
+
   }, [])
 
   return (
