@@ -1,15 +1,15 @@
 import { useHttp } from "../hooks/useHttp";
 import authParams from '../utils/variable'
-const { _baseCount, BASE_URL, client_secret, x_secret_key } = authParams
+import { headers } from "../utils/variable";
+
+const { _baseCount, BASE_URL } = authParams
 
 const useVacanciesService = () => {
   const request = useHttp()
   const token = JSON.parse(localStorage.getItem('token'))
-  const headers = {
-    'x-secret-key': `${x_secret_key}`,
-    'x-api-app-id': `${client_secret}`,
+
+  const authHeader = {
     'Authorization': `${token.token_type} ${token.access_token}`,
-    'Content-Type': 'application/json'
   }
 
   const getVacancies = async (page = 1, payment_from = '', payment_to = '', profession = '', keywords = '') => {
@@ -26,7 +26,7 @@ const useVacanciesService = () => {
       no_agreement: `${no_agreement}`
     }
 
-    return await request(`${BASE_URL}vacancies/`, headers, params)
+    return await request(`${BASE_URL}vacancies/`, { ...headers, ...authHeader }, params)
   }
 
   const getFavoriteVacacies = async (page) => {
@@ -37,12 +37,14 @@ const useVacanciesService = () => {
       count: `${_baseCount}`
     }
 
-    return request(`${BASE_URL}vacancies/?${ids}`, headers, params)
+    return request(`${BASE_URL}vacancies/?${ids}`, { ...headers, ...authHeader }, params)
   }
 
-  const getVacancy = async (id) => request(`${BASE_URL}vacancies/${id}/`, headers)
+  const getCatalogues = async () => await request(`${BASE_URL}catalogues/`, headers)
 
-  return { getVacancies, getVacancy, getFavoriteVacacies }
+  const getVacancy = async (id) => request(`${BASE_URL}vacancies/${id}/`, { ...headers, ...authHeader })
+
+  return { getVacancies, getVacancy, getFavoriteVacacies, getCatalogues }
 }
 
 export default useVacanciesService

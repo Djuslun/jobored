@@ -9,4 +9,10 @@ const authParams = {
   x_secret_key: 'GEU4nvd3rej*jeh.eqp',
 }
 
+export const headers = {
+  'x-secret-key': `${authParams.x_secret_key}`,
+  'x-api-app-id': `${authParams.client_secret}`,
+  'Content-Type': 'application/json'
+}
+
 export default authParams

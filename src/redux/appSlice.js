@@ -1,19 +1,19 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import { getAccsesKey } from "../servises/getAccsesKey";
-import { getCatalogues } from "../servises/getCatalogues";
+import useVacanciesService from "../servises/vacanciesServise";
+import { useAccsesKey } from "../servises/getAccsesKey";
 
 const appAdapter = createEntityAdapter()
 
 export const fetchToken = createAsyncThunk(
   'vacancies/fetchToken',
-  () => getAccsesKey()
+  () => useAccsesKey()
 )
 
 export const fetchCatalogues = createAsyncThunk(
   'vacancies/fetchCatalogues',
   async () => {
-    const { request } = getCatalogues()
-    return await request()
+    const { getCatalogues } = useVacanciesService()
+    return getCatalogues()
   }
 )
 
@@ -32,14 +32,15 @@ const appSlice = createSlice({
       .addCase(fetchToken.pending, (state) => {
         state.tokenLoadingStatus = 'loading'
       })
-      .addCase(fetchToken.fulfilled, (state) => {
+      .addCase(fetchToken.fulfilled, (state, action) => {
         state.tokenLoadingStatus = 'ok'
       })
       .addCase(fetchToken.rejected, (state) => {
         state.tokenLoadingStatus = 'error'
       })
       .addCase(fetchCatalogues.fulfilled, (state, action) => {
-        state.catalogues = action.payload
+        const catalogues = action.payload.map(item => ({ label: item.title_trimmed, value: item.key }))
+        state.catalogues = catalogues;
       })
       .addCase(fetchCatalogues.rejected, () => {
         console.log('Coudn`t fetch catalogues')
