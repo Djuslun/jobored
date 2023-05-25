@@ -11,6 +11,7 @@ import { favoriteVacanciesSelector } from "../redux/favoriteSlice";
 const Favorite = () => {
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
+  const [update, setUpdate] = useState(false)
 
   const favoriteItems = useSelector(favoriteVacanciesSelector)
   const total = useSelector(state => Math.ceil(state.favorites.total / 4))
@@ -18,16 +19,26 @@ const Favorite = () => {
 
   useEffect(() => {
     dispatch(fetchFavorites(currentPage))
-  }, [currentPage])
+  }, [currentPage, update])
 
-  useEffect(() => {
-    if (currentPage > total) {
-      setCurrentPage(total)
+  const handlePageChange = (page) => {
+    console.log(currentPage, 'curr')
+    console.log(page, 'page')
+    const favoriteIDs = JSON.parse(localStorage.getItem('favorites')) || []
+    console.log(Math.ceil(favoriteIDs.length / 4), 'total')
+
+    if (currentPage === Math.ceil(favoriteIDs.length / 4)) {
+      setUpdate(v => !v)
     }
-  }, [total])
+    if (page > Math.ceil(favoriteIDs.length / 4)) {
+      setCurrentPage(Math.ceil(favoriteIDs.length / 4))
+    } else {
+      setCurrentPage(page)
+    }
+  }
 
   return (
-    <Vacancies currentPage={currentPage} total={total} setCurrentPage={setCurrentPage}>
+    <Vacancies currentPage={currentPage} total={total} setCurrentPage={handlePageChange}>
       <View
         loadingStatus={loadingStatus}
         favoriteItems={favoriteItems} />

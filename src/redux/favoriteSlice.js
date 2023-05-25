@@ -41,6 +41,7 @@ const favoritesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchFavorites.pending, (state) => {
+        state.total = 0
         state.loadingStatus = 'loading'
       })
       .addCase(fetchFavorites.fulfilled, (state, action) => {
