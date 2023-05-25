@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { favoriteVacancyToggle } from "../../redux/vacanciesSlice";
+import { favoritesVacancyToggle } from "../../redux/favoriteSlice";
 import classNames from "classnames";
 import { ReactComponent as Star } from "../../assets/star.svg"
 import './vacancyItem.scss'
@@ -10,7 +10,7 @@ const VacancyItem = ({ currency, payment_from, payment_to, profession, type_of_w
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isFavorite, setIsFavorite] = useState(false);
-  const { favoriteIDs } = useSelector(store => store.vacancies)
+  const { favoriteIDs } = useSelector(store => store.favorites)
 
   useEffect(() => {
     if (favoriteIDs) {
@@ -30,7 +30,7 @@ const VacancyItem = ({ currency, payment_from, payment_to, profession, type_of_w
 
   const handleFavoriteChange = (event) => {
     event.stopPropagation()
-    dispatch(favoriteVacancyToggle(id))
+    dispatch(favoritesVacancyToggle(id))
   }
 
   const handleNavigate = (id) => navigate(`/vacancy/${id}`)

@@ -1,23 +1,23 @@
 import VacancyList from "../components/vacancyList/VacancyList"
 import { useEffect, useState } from "react"
 import { Spinner } from "../components/spinner/Spinner";
-import useVacanciesService from "../servises/vacanciesServise";
 import FavoriteEmptyState from "../components/favoriteEmptyState/FavoriteEmptyState";
 import Vacancies from "../components/vacancies/Vacancies";
 import ErrorMessage from "../components/errorMessage/ErrorMessage";
+import { fetchFavorites } from "../redux/favoriteSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { favoriteVacanciesSelector } from "../redux/favoriteSlice";
 
 const Favorite = () => {
-  const { loadingStatus, getFavoriteVacacies } = useVacanciesService()
+  const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
-  const [favoriteItems, setFavoriteItems] = useState([])
-  const [total, setTotal] = useState(0)
+
+  const favoriteItems = useSelector(favoriteVacanciesSelector)
+  const total = useSelector(state => Math.ceil(state.favorites.total / 4))
+  const loadingStatus = useSelector(state => state.favorites.loadingStatus)
 
   useEffect(() => {
-    getFavoriteVacacies(currentPage)
-      .then(data => {
-        setFavoriteItems(data.vacancies)
-        setTotal(Math.ceil(data.total / 4))
-      })
+    dispatch(fetchFavorites(currentPage))
   }, [currentPage])
 
   return (

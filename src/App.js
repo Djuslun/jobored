@@ -2,7 +2,8 @@ import { BrowserRouter } from 'react-router-dom';
 import Header from './components/header/Header';
 import Main from './components/main/Main';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchToken, favoriteVacanciesSet, fetchCatalogues } from './redux/vacanciesSlice';
+import { fetchToken, fetchCatalogues } from './redux/vacanciesSlice';
+import { favoritesVacanciesSet } from './redux/favoriteSlice';
 import { useEffect } from 'react';
 import { Spinner } from './components/spinner/Spinner';
 import ErrorMessage from './components/errorMessage/ErrorMessage';
@@ -15,7 +16,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchCatalogues())
-    dispatch(favoriteVacanciesSet())
+    dispatch(favoritesVacanciesSet())
     dispatch(fetchToken())
   }, [])
 

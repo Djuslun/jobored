@@ -39,21 +39,6 @@ const useVacanciesService = () => {
     return _transformVacancy(res)
   }
 
-  const getFavoriteVacacies = async (page) => {
-    const favoriteIDs = JSON.parse(localStorage.getItem('favorites')) || []
-    const ids = favoriteIDs.map(item => `ids[]=${item}`).join('&') || `ids[]=`
-    const params = {
-      page: `${page - 1}`,
-      count: `${_baseCount}`
-    }
-
-    const res = await request(`${BASE_URL}vacancies/?${ids}`, headers, params)
-    console.log(res)
-    const vacancies = _transformVacancies(res.objects)
-
-    return { vacancies, total: res.total }
-  }
-
   const _transformVacancies = (data) => {
     return data.map(item => ({
       profession: item.profession,
@@ -83,7 +68,7 @@ const useVacanciesService = () => {
     }
   }
 
-  return { loadingStatus, getVacancies, getVacancy, getFavoriteVacacies }
+  return { loadingStatus, getVacancies, getVacancy }
 }
 
 export default useVacanciesService

@@ -33,20 +33,20 @@ const vacanciesSlice = createSlice({
   name: 'vacancies',
   initialState,
   reducers: {
-    favoriteVacancyToggle: (state, action) => {
-      if (state.favoriteIDs.includes(action.payload)) {
-        state.favoriteIDs = state.favoriteIDs.filter(id => id !== action.payload)
-      } else {
-        state.favoriteIDs.push(action.payload)
-      }
-      localStorage.setItem('favorites', JSON.stringify(state.favoriteIDs))
-    },
-    favoriteVacanciesSet: (state) => {
-      const favorites = JSON.parse(localStorage.getItem('favorites'))
-      if (favorites) {
-        state.favoriteIDs = favorites
-      }
-    },
+    // favoriteVacancyToggle: (state, action) => {
+    //   if (state.favoriteIDs.includes(action.payload)) {
+    //     state.favoriteIDs = state.favoriteIDs.filter(id => id !== action.payload)
+    //   } else {
+    //     state.favoriteIDs.push(action.payload)
+    //   }
+    //   localStorage.setItem('favorites', JSON.stringify(state.favoriteIDs))
+    // },
+    // favoriteVacanciesSet: (state) => {
+    //   const favorites = JSON.parse(localStorage.getItem('favorites'))
+    //   if (favorites) {
+    //     state.favoriteIDs = favorites
+    //   }
+    // },
     filtersSet: (state, action) => {
       const { profession, payment_from, payment_to } = action.payload
       state.filters = { ...state.filters, profession, payment_from, payment_to }
@@ -90,4 +90,4 @@ export default reducer
 
 export const { selectAll, selectById } = vacanciesAdapter.getSelectors(state => state.vacancies)
 
-export const { favoriteVacancyToggle, pageChange, favoriteVacanciesSet, filtersSet, keywordsSet, filtersReset } = actions
+export const { pageChange, filtersSet, keywordsSet, filtersReset } = actions
