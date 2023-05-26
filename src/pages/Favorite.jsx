@@ -15,7 +15,10 @@ const Favorite = () => {
 
   const favoriteItems = useSelector(favoriteVacanciesSelector)
   const total = useSelector(state => Math.ceil(state.favorites.total / 4))
+
   const loadingStatus = useSelector(state => state.favorites.loadingStatus)
+  const errorStatus = useSelector(state => state.favorites.errorStatus)
+  const isReady = !(loadingStatus || errorStatus)
 
   useEffect(() => {
     dispatch(fetchFavorites(currentPage))
@@ -23,38 +26,31 @@ const Favorite = () => {
 
   const handlePageChange = (page) => {
     const favoriteIDs = JSON.parse(localStorage.getItem('favorites')) || []
+    const totalPages = Math.ceil(favoriteIDs.length / 4)
+    const validPage = Math.max(1, Math.min(totalPages, page))
 
-    if (currentPage === Math.ceil(favoriteIDs.length / 4)) {
+    if (currentPage === totalPages) {
       setUpdate(v => !v)
     }
-    if (page > Math.ceil(favoriteIDs.length / 4)) {
-      setCurrentPage(Math.ceil(favoriteIDs.length / 4))
-    } else {
-      setCurrentPage(page)
-    }
+
+    setCurrentPage(validPage)
   }
 
   return (
     <Vacancies currentPage={currentPage} total={total} setCurrentPage={handlePageChange}>
-      <View
-        loadingStatus={loadingStatus}
-        favoriteItems={favoriteItems} />
+      {loadingStatus && <Spinner />}
+      {errorStatus && <ErrorMessage />}
+      {isReady && <View favoriteItems={favoriteItems} />}
     </Vacancies>
   )
 }
 
 export default Favorite
 
-const View = ({ loadingStatus, favoriteItems }) => {
-  switch (loadingStatus) {
-    case 'loading': return <Spinner />
-    case 'error': return <ErrorMessage />
-    case 'ok': {
-      return favoriteItems.length
-        ? <VacancyList vacancies={favoriteItems} />
-        : <FavoriteEmptyState
-        />
-    }
-    default: return <></>
-  }
+const View = ({ favoriteItems }) => {
+  return (
+    favoriteItems.length
+      ? <VacancyList vacancies={favoriteItems} />
+      : <FavoriteEmptyState />
+  )
 }

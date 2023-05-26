@@ -12,30 +12,26 @@ import { fetchToken, fetchCatalogues } from './redux/appSlice';
 function App() {
   const dispatch = useDispatch()
   const tokenLoadingStatus = useSelector(store => store.appReducer.tokenLoadingStatus)
+  const tokenErrorStatus = useSelector(store => store.appReducer.tokenErrorStatus)
   const cataloguesLoadingStatus = useSelector(store => store.appReducer.cataloguesLoadingStatus)
+  const cataloguesErrorStatus = useSelector(store => store.appReducer.cataloguesErrorStatus)
 
-  const getAppLoadingStatus = () => {
-    const isLoading = tokenLoadingStatus === 'loading' || cataloguesLoadingStatus === 'loading'
-    const isError = tokenLoadingStatus === 'error' || cataloguesLoadingStatus === 'error'
-    const isOk = tokenLoadingStatus === 'ok' && cataloguesLoadingStatus === 'ok'
-
-    return isLoading ? 'loading' : isError ? 'error' : isOk ? 'ok' : ''
-  }
-
-  const appStatus = getAppLoadingStatus()
-
+  const isLoading = tokenLoadingStatus || cataloguesLoadingStatus
+  const isError = tokenErrorStatus || cataloguesErrorStatus
+  const isReady = !(isLoading || isError)
 
   useEffect(() => {
     dispatch(favoritesVacanciesSet())
     dispatch(fetchToken())
     dispatch(fetchCatalogues())
-
   }, [])
 
   return (
     <BrowserRouter>
       <div className="app">
-        {view[appStatus]}
+        {isLoading && <Spinner />}
+        {isError && <ErrorMessage />}
+        {isReady && <View />}
       </div>
     </BrowserRouter >
   );
@@ -43,12 +39,11 @@ function App() {
 
 export default App;
 
-const view = {
-  'ok':
+const View = () => {
+  return (
     <>
       <Header />
       <Main />
-    </>,
-  'loading': <Spinner />,
-  'error': <ErrorMessage />
+    </>
+  )
 }
