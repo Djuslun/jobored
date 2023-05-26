@@ -1,27 +1,19 @@
 import VacancyList from "../components/vacancyList/VacancyList"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Spinner } from "../components/spinner/Spinner";
 import FavoriteEmptyState from "../components/favoriteEmptyState/FavoriteEmptyState";
 import Vacancies from "../components/vacancies/Vacancies";
 import ErrorMessage from "../components/errorMessage/ErrorMessage";
-import { fetchFavorites } from "../redux/favoriteSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { favoriteVacanciesSelector, favoriteLoadingStatusSelector } from "../redux/favoriteSlice";
-import { useForceUpdate } from "../hooks/useForceUpdate";
+import { useSelector } from "react-redux";
+import { favoriteVacanciesSelector } from "../redux/favoriteSlice";
+import useFavorites from "../hooks/useFavorites";
 
 const Favorite = () => {
-  const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
-  const [update, forceUpdate] = useForceUpdate()
 
-  const favoriteItems = useSelector(favoriteVacanciesSelector)
-  const total = useSelector(state => Math.ceil(state.favorites.total / 4))
+  const { favorites: favoriteItems, total } = useSelector(favoriteVacanciesSelector)
 
-  const { isLoading, isError, isLoaded } = useSelector(favoriteLoadingStatusSelector)
-
-  useEffect(() => {
-    dispatch(fetchFavorites(currentPage))
-  }, [currentPage, update])
+  const { isLoading, isError, isLoaded, forceUpdate } = useFavorites(currentPage)
 
   const handlePageChange = (page) => {
     const favoriteIDs = JSON.parse(localStorage.getItem('favorites')) || []

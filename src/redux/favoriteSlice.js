@@ -70,7 +70,8 @@ export const { selectAll } = favoritesAdapter.getSelectors(state => state.favori
 
 export const favoriteVacanciesSelector = createSelector(
   selectAll,
-  favorites => favorites
+  (state) => state.favorites.total,
+  (favorites, total) => ({ favorites, total: Math.ceil(total / 4) })
 )
 
 export const favoriteLoadingStatusSelector = createSelector(
