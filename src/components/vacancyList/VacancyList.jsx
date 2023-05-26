@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom"
 import classNames from "classnames"
 import './vacancyList.scss'
 
-
 const VacancyList = ({ vacancies }) => {
   const location = useLocation()
   const url = location.pathname
