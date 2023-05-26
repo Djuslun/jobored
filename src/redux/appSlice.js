@@ -18,7 +18,7 @@ export const fetchCatalogues = createAsyncThunk(
 )
 
 const initialState = appAdapter.getInitialState({
-  tokenLoadingStatus: false,
+  tokenLoadingStatus: true,
   tokenErrorStatus: false,
   cataloguesLoadingStatus: false,
   cataloguesErrorStatus: false,

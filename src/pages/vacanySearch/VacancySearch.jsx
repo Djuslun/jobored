@@ -34,9 +34,15 @@ const VacancySearch = () => {
 
   return (
     <>
-      {loadingStatus && <Spinner />}
-      {errorStatus && <ErrorMessage />}
-      {isReady && <View vacancies={vacancies} currentPage={currentPage} total={total} setCurrentPage={setCurrentPage} />}
+      <div className="vacancy-search">
+        <FilterForm />
+        <div className="vacancy-search__body">
+          <CustomInput />
+          {loadingStatus && <Spinner />}
+          {errorStatus && <ErrorMessage />}
+          {isReady && <View vacancies={vacancies} currentPage={currentPage} total={total} setCurrentPage={setCurrentPage} />}
+        </div>
+      </div>
     </>
   )
 }
@@ -45,17 +51,11 @@ export default VacancySearch
 
 const View = ({ vacancies, currentPage, total, setCurrentPage }) => {
   return (
-    <div className="vacancy-search">
-      <FilterForm />
-      <div className="vacancy-search__body">
-        <CustomInput />
-        <Vacancies
-          currentPage={currentPage}
-          total={total}
-          setCurrentPage={setCurrentPage}>
-          <VacancyList vacancies={vacancies} />
-        </Vacancies>
-      </div>
-    </div>
+    <Vacancies
+      currentPage={currentPage}
+      total={total}
+      setCurrentPage={setCurrentPage}>
+      <VacancyList vacancies={vacancies} />
+    </Vacancies>
   )
 }
