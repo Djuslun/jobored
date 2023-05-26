@@ -11,9 +11,13 @@ import './vacancy.scss'
 const Vacancy = () => {
   const dispatch = useDispatch()
   const params = useParams()
+  const [vacancy, setVacancy] = useState('')
+
   const vacancyItem = useSelector(state => state.vacancy.vacancy)
   const loadingStatus = useSelector(state => state.vacancy.loadingStatus)
-  const [vacancy, setVacancy] = useState('')
+  const errorStatus = useSelector(state => state.vacancy.errorStatus)
+
+  const isReady = !(loadingStatus || errorStatus)
 
   useEffect(() => {
     dispatch(fetchVacancy(params.id))
@@ -27,29 +31,21 @@ const Vacancy = () => {
 
   return (
     <>
-      <View
-        loadingStatus={loadingStatus}
-        vacancyItem={vacancyItem}
-        vacancy={vacancy} />
+      {loadingStatus && <Spinner />}
+      {errorStatus && <ErrorMessage />}
+      {isReady && <View vacancyItem={vacancyItem} vacancy={vacancy} />}
     </>
   )
 }
 
 export default Vacancy
 
-const View = ({ loadingStatus, vacancyItem, vacancy }) => {
-  switch (loadingStatus) {
-    case 'loading': return <Spinner />
-    case 'error': return <ErrorMessage />
-    case 'ok': {
-      return (
-        <div className='vacancy-page'>
-          <VacancyItem {...vacancyItem} isSingleVacancy={true} />
-          <div className='vacancy-page__body'>
-            {vacancy}
-          </div>
-        </div>)
-    }
-    default: return <></>
-  }
+const View = ({ vacancyItem, vacancy }) => {
+  return (
+    <div className='vacancy-page'>
+      <VacancyItem {...vacancyItem} isSingleVacancy={true} />
+      <div className='vacancy-page__body'>
+        {vacancy}
+      </div>
+    </div>)
 }

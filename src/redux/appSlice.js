@@ -18,8 +18,10 @@ export const fetchCatalogues = createAsyncThunk(
 )
 
 const initialState = appAdapter.getInitialState({
-  tokenLoadingStatus: 'idle',
-  cataloguesLoadingStatus: 'idle',
+  tokenLoadingStatus: false,
+  tokenErrorStatus: false,
+  cataloguesLoadingStatus: false,
+  cataloguesErrorStatus: false,
   catalogues: []
 })
 
@@ -31,25 +33,27 @@ const appSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchToken.pending, (state) => {
-        state.tokenLoadingStatus = 'loading'
+        state.tokenLoadingStatus = true
       })
       .addCase(fetchToken.fulfilled, (state, action) => {
-        state.tokenLoadingStatus = 'ok'
+        state.tokenLoadingStatus = false
       })
       .addCase(fetchToken.rejected, (state) => {
-        state.tokenLoadingStatus = 'error'
+        state.tokenLoadingStatus = false
+        state.tokenErrorStatus = true
       })
       .addCase(fetchCatalogues.pending, (state) => {
-        state.cataloguesLoadingStatus = 'loading'
+        state.cataloguesLoadingStatus = true
       })
       .addCase(fetchCatalogues.fulfilled, (state, action) => {
         const catalogues = action.payload.map(item => ({ label: item.title_trimmed, value: item.key }))
         state.catalogues = catalogues
-        state.cataloguesLoadingStatus = 'ok'
+        state.cataloguesLoadingStatus = false
       })
       .addCase(fetchCatalogues.rejected, (state) => {
         console.log('Coudn`t fetch catalogues')
-        state.cataloguesLoadingStatus = 'error'
+        state.cataloguesLoadingStatus = false
+        state.cataloguesErrorStatus = true
       })
       .addDefaultCase(() => { })
   }
