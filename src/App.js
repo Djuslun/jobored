@@ -1,37 +1,21 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/header/Header';
-import Main from './components/main/Main';
-import { useDispatch, useSelector } from "react-redux";
-import { favoritesVacanciesSet } from './redux/favoriteSlice';
-import { useEffect } from 'react';
 import { Spinner } from './components/spinner/Spinner';
 import ErrorMessage from './components/errorMessage/ErrorMessage';
+import { Favorite, Vacancy, VacancySearch, NotFoundPage } from './pages'
+import useAppLoadingStatus from './hooks/useAppLoadingStatus';
+
 import './styles/_app.scss';
-import { fetchToken, fetchCatalogues } from './redux/appSlice';
 
 function App() {
-  const dispatch = useDispatch()
-  const tokenLoadingStatus = useSelector(store => store.appReducer.tokenLoadingStatus)
-  const tokenErrorStatus = useSelector(store => store.appReducer.tokenErrorStatus)
-  const cataloguesLoadingStatus = useSelector(store => store.appReducer.cataloguesLoadingStatus)
-  const cataloguesErrorStatus = useSelector(store => store.appReducer.cataloguesErrorStatus)
-
-  const isLoading = tokenLoadingStatus || cataloguesLoadingStatus
-  const isError = tokenErrorStatus || cataloguesErrorStatus
-  const isReady = !(isLoading || isError)
-
-  useEffect(() => {
-    dispatch(favoritesVacanciesSet())
-    dispatch(fetchToken())
-    dispatch(fetchCatalogues())
-  }, [])
+  const { isLoading, isError, isLoaded } = useAppLoadingStatus()
 
   return (
     <BrowserRouter>
       <div className="app">
         {isLoading && <Spinner />}
         {isError && <ErrorMessage />}
-        {isReady && <View />}
+        {isLoaded && <View />}
       </div>
     </BrowserRouter >
   );
@@ -43,7 +27,17 @@ const View = () => {
   return (
     <>
       <Header />
-      <Main />
+      <main className='main'>
+        <div className="main__container">
+          <Routes>
+            <Route path='/' element={<Navigate to={'/vacancy'} />} />
+            <Route path='/vacancy' element={<VacancySearch />} />
+            <Route path='/favorite' element={<Favorite />} />
+            <Route path='/vacancy/:id' element={<Vacancy />} />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+        </div>
+      </main>
     </>
   )
 }

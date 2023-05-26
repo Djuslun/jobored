@@ -1,16 +1,16 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import useVacanciesService from "../servises/vacanciesServise";
 import { useAccsesKey } from "../servises/getAccsesKey";
 
 const appAdapter = createEntityAdapter()
 
 export const fetchToken = createAsyncThunk(
-  'vacancies/fetchToken',
+  'app/fetchToken',
   () => useAccsesKey()
 )
 
 export const fetchCatalogues = createAsyncThunk(
-  'vacancies/fetchCatalogues',
+  'app/fetchCatalogues',
   async () => {
     const { getCatalogues } = useVacanciesService()
     return getCatalogues()
@@ -62,5 +62,19 @@ const appSlice = createSlice({
 })
 
 const { reducer: appReducer } = appSlice
+
+export const appLoadingStatusSelector = createSelector(
+  (state) => state.appReducer.tokenErrorStatus,
+  (state) => state.appReducer.cataloguesErrorStatus,
+  (state) => state.appReducer.tokenLoadingStatus,
+  (state) => state.appReducer.cataloguesLoadingStatus,
+  (tokenError, cataloguesError, tokenLoading, cataloguesLoading) => {
+    const isLoading = tokenLoading || cataloguesLoading
+    const isError = tokenError || cataloguesError
+    const isLoaded = !(isLoading || isError)
+
+    return { isLoading, isError, isLoaded }
+  }
+)
 
 export default appReducer

@@ -55,5 +55,15 @@ export const { selectAll } = vacanciesAdapter.getSelectors(state => state.vacanc
 
 export const vacanciesSelector = createSelector(
   selectAll,
-  favorites => favorites
+  (state) => state.vacancies.total,
+  (vacancies, total) => ({ vacancies, total })
+)
+
+export const vacanciesLoadingStatusSelector = createSelector(
+  (state) => state.vacancies.loadingStatus,
+  (state) => state.vacancies.errorStatus,
+  (isLoading, isError) => {
+    const isLoaded = !(isLoading || isError)
+    return { isLoading, isError, isLoaded }
+  }
 )
