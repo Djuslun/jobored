@@ -33,6 +33,7 @@ const appSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchToken.pending, (state) => {
+        state.tokenErrorStatus = false
         state.tokenLoadingStatus = true
       })
       .addCase(fetchToken.fulfilled, (state, action) => {
@@ -43,6 +44,7 @@ const appSlice = createSlice({
         state.tokenErrorStatus = true
       })
       .addCase(fetchCatalogues.pending, (state) => {
+        state.cataloguesErrorStatus = false
         state.cataloguesLoadingStatus = true
       })
       .addCase(fetchCatalogues.fulfilled, (state, action) => {
