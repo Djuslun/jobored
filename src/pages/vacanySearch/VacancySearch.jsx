@@ -6,26 +6,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { Spinner } from "../../components/spinner/Spinner";
 import Vacancies from "../../components/vacancies/Vacancies";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
-import { fetchVacancies, vacanciesSelector } from "../../redux/vacanciesSlice";
+import { fetchVacancies, vacanciesSelector, vacanciesLoadingStatusSelector } from "../../redux/vacanciesSlice";
+import { useForceUpdate } from '../../hooks/useForceUpdate'
 import './vacancySearch.scss'
 
 const VacancySearch = () => {
   const dispatch = useDispatch()
 
-  const [update, setUpdate] = useState(false);
+  const [update, forceUpdate] = useForceUpdate()
   const [currentPage, setCurrentPage] = useState(1)
 
   const { payment_to, payment_from, profession, keywords } = useSelector(state => state.filter.filter)
   const total = useSelector(state => state.vacancies.total)
   const vacancies = useSelector(vacanciesSelector)
-
-  const loadingStatus = useSelector(state => state.vacancies.loadingStatus)
-  const errorStatus = useSelector(state => state.vacancies.errorStatus)
-  const isReady = !(loadingStatus || errorStatus)
+  const { isLoading, isError, isLoaded } = useSelector(vacanciesLoadingStatusSelector)
 
   useEffect(() => {
     setCurrentPage(1)
-    setUpdate(v => !v)
+    forceUpdate()
   }, [payment_from, payment_to, profession, keywords])
 
   useEffect(() => {
@@ -38,9 +36,9 @@ const VacancySearch = () => {
         <FilterForm />
         <div className="vacancy-search__body">
           <CustomInput />
-          {loadingStatus && <Spinner />}
-          {errorStatus && <ErrorMessage />}
-          {isReady && <View vacancies={vacancies} currentPage={currentPage} total={total} setCurrentPage={setCurrentPage} />}
+          {isLoading && <Spinner />}
+          {isError && <ErrorMessage />}
+          {isLoaded && <View vacancies={vacancies} currentPage={currentPage} total={total} setCurrentPage={setCurrentPage} />}
         </div>
       </div>
     </>

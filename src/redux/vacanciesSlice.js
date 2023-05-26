@@ -57,3 +57,12 @@ export const vacanciesSelector = createSelector(
   selectAll,
   favorites => favorites
 )
+
+export const vacanciesLoadingStatusSelector = createSelector(
+  (state) => state.vacancies.loadingStatus,
+  (state) => state.vacancies.errorStatus,
+  (isLoading, isError) => {
+    const isLoaded = !(isLoading || isError)
+    return { isLoading, isError, isLoaded }
+  }
+)

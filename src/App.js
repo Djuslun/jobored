@@ -7,18 +7,11 @@ import { useEffect } from 'react';
 import { Spinner } from './components/spinner/Spinner';
 import ErrorMessage from './components/errorMessage/ErrorMessage';
 import './styles/_app.scss';
-import { fetchToken, fetchCatalogues } from './redux/appSlice';
+import { fetchToken, fetchCatalogues, appLoadingStatusSelector } from './redux/appSlice';
 
 function App() {
   const dispatch = useDispatch()
-  const tokenLoadingStatus = useSelector(store => store.appReducer.tokenLoadingStatus)
-  const tokenErrorStatus = useSelector(store => store.appReducer.tokenErrorStatus)
-  const cataloguesLoadingStatus = useSelector(store => store.appReducer.cataloguesLoadingStatus)
-  const cataloguesErrorStatus = useSelector(store => store.appReducer.cataloguesErrorStatus)
-
-  const isLoading = tokenLoadingStatus || cataloguesLoadingStatus
-  const isError = tokenErrorStatus || cataloguesErrorStatus
-  const isReady = !(isLoading || isError)
+  const { isLoading, isError, isLoaded } = useSelector(appLoadingStatusSelector)
 
   useEffect(() => {
     dispatch(favoritesVacanciesSet())
@@ -31,7 +24,7 @@ function App() {
       <div className="app">
         {isLoading && <Spinner />}
         {isError && <ErrorMessage />}
-        {isReady && <View />}
+        {isLoaded && <View />}
       </div>
     </BrowserRouter >
   );

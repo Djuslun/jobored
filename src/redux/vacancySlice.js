@@ -45,5 +45,15 @@ const vacancySlice = createSlice({
 
 const { reducer: vacancy } = vacancySlice
 
+export const vacancyLoadingStatusSelector = createSelector(
+  (state) => state.vacancy.loadingStatus,
+  (state) => state.vacancy.errorStatus,
+  (isLoading, isError) => {
+    const isLoaded = !(isLoading || isError)
+    return { isLoading, isError, isLoaded }
+  }
+)
+
+
 export default vacancy
 

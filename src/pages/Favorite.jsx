@@ -6,19 +6,18 @@ import Vacancies from "../components/vacancies/Vacancies";
 import ErrorMessage from "../components/errorMessage/ErrorMessage";
 import { fetchFavorites } from "../redux/favoriteSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { favoriteVacanciesSelector } from "../redux/favoriteSlice";
+import { favoriteVacanciesSelector, favoriteLoadingStatusSelector } from "../redux/favoriteSlice";
+import { useForceUpdate } from "../hooks/useForceUpdate";
 
 const Favorite = () => {
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1)
-  const [update, setUpdate] = useState(false)
+  const [update, forceUpdate] = useForceUpdate()
 
   const favoriteItems = useSelector(favoriteVacanciesSelector)
   const total = useSelector(state => Math.ceil(state.favorites.total / 4))
 
-  const loadingStatus = useSelector(state => state.favorites.loadingStatus)
-  const errorStatus = useSelector(state => state.favorites.errorStatus)
-  const isReady = !(loadingStatus || errorStatus)
+  const { isLoading, isError, isLoaded } = useSelector(favoriteLoadingStatusSelector)
 
   useEffect(() => {
     dispatch(fetchFavorites(currentPage))
@@ -30,7 +29,7 @@ const Favorite = () => {
     const validPage = Math.max(1, Math.min(totalPages, page))
 
     if (currentPage === totalPages) {
-      setUpdate(v => !v)
+      forceUpdate()
     }
 
     setCurrentPage(validPage)
@@ -38,9 +37,9 @@ const Favorite = () => {
 
   return (
     <Vacancies currentPage={currentPage} total={total} setCurrentPage={handlePageChange}>
-      {loadingStatus && <Spinner />}
-      {errorStatus && <ErrorMessage />}
-      {isReady && <View favoriteItems={favoriteItems} />}
+      {isLoading && <Spinner />}
+      {isError && <ErrorMessage />}
+      {isLoaded && <View favoriteItems={favoriteItems} />}
     </Vacancies>
   )
 }

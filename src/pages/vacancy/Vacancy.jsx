@@ -4,7 +4,7 @@ import VacancyItem from '../../components/vacancyItem/VacancyItem';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner/Spinner';
 import ErrorMessage from '../../components/errorMessage/ErrorMessage';
-import { fetchVacancy } from '../../redux/vacancySlice';
+import { fetchVacancy, vacancyLoadingStatusSelector } from '../../redux/vacancySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import './vacancy.scss'
 
@@ -14,10 +14,8 @@ const Vacancy = () => {
   const [vacancy, setVacancy] = useState('')
 
   const vacancyItem = useSelector(state => state.vacancy.vacancy)
-  const loadingStatus = useSelector(state => state.vacancy.loadingStatus)
-  const errorStatus = useSelector(state => state.vacancy.errorStatus)
+  const { isLoading, isError, isLoaded } = useSelector(vacancyLoadingStatusSelector)
 
-  const isReady = !(loadingStatus || errorStatus)
 
   useEffect(() => {
     dispatch(fetchVacancy(params.id))
@@ -31,9 +29,9 @@ const Vacancy = () => {
 
   return (
     <>
-      {loadingStatus && <Spinner />}
-      {errorStatus && <ErrorMessage />}
-      {isReady && <View vacancyItem={vacancyItem} vacancy={vacancy} />}
+      {isLoading && <Spinner />}
+      {isError && <ErrorMessage />}
+      {isLoaded && <View vacancyItem={vacancyItem} vacancy={vacancy} />}
     </>
   )
 }
