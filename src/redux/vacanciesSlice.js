@@ -15,7 +15,7 @@ export const fetchVacancies = createAsyncThunk(
 
 const initialState = vacanciesAdapter.getInitialState({
   loadingStatus: 'idle',
-  total: 0
+  total: 0,
 })
 
 const favoritesSlice = createSlice({

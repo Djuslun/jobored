@@ -11,8 +11,10 @@ import './vacancySearch.scss'
 
 const VacancySearch = () => {
   const dispatch = useDispatch()
+
   const [update, setUpdate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1)
+
   const { payment_to, payment_from, profession, keywords } = useSelector(state => state.filter.filter)
   const total = useSelector(state => state.vacancies.total)
   const loadingStatus = useSelector(state => state.vacancies.loadingStatus)

@@ -22,10 +22,7 @@ const Favorite = () => {
   }, [currentPage, update])
 
   const handlePageChange = (page) => {
-    console.log(currentPage, 'curr')
-    console.log(page, 'page')
     const favoriteIDs = JSON.parse(localStorage.getItem('favorites')) || []
-    console.log(Math.ceil(favoriteIDs.length / 4), 'total')
 
     if (currentPage === Math.ceil(favoriteIDs.length / 4)) {
       setUpdate(v => !v)
