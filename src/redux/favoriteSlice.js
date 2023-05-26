@@ -44,6 +44,7 @@ const favoritesSlice = createSlice({
       .addCase(fetchFavorites.pending, (state) => {
         state.total = 0
         state.loadingStatus = true
+        state.errroStatus = false
       })
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         const { objects, total } = action.payload

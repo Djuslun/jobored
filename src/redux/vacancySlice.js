@@ -28,6 +28,7 @@ const vacancySlice = createSlice({
     builder
       .addCase(fetchVacancy.pending, (state) => {
         state.loadingStatus = true
+        state.errorStatus = false
       })
       .addCase(fetchVacancy.fulfilled, (state, action) => {
         const data = _transformVacancy(action.payload)
