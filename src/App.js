@@ -4,7 +4,6 @@ import { Spinner } from './components/spinner/Spinner';
 import ErrorMessage from './components/errorMessage/ErrorMessage';
 import { Favorite, Vacancy, VacancySearch, NotFoundPage } from './pages'
 import useAppLoadingStatus from './hooks/useAppLoadingStatus';
-
 import './styles/_app.scss';
 
 function App() {

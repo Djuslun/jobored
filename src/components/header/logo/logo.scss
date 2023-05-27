@@ -4,7 +4,6 @@
 .logo {
   display: flex;
   align-items: center;
-  margin-right: 280px;
 
   &__image {
     height: 30px;
@@ -22,8 +21,6 @@
 
 @media (max-width: 1023px) {
   .logo {
-    margin-right: 200px;
-
     &__image {
       height: 26px;
       width: 26px;
