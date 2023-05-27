@@ -20,3 +20,4 @@
 - sass/scss
 - Mantine
 
+_Developed by [Eduard Huzarevich](https://github.com/Djuslun)_
