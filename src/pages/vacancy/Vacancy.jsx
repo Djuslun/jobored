@@ -5,7 +5,6 @@ import useVacancy from '../../hooks/useVacancy';
 import './vacancy.scss'
 
 const Vacancy = () => {
-
   const { isLoading, isError, isLoaded, vacancy, vacancyItem } = useVacancy()
 
   return (

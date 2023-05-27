@@ -1,60 +1,47 @@
-import { useState, useEffect } from 'react';
 import { Button } from '@mantine/core';
 import CustomInputNumber from './customInputNumber/CustomInputNumber';
 import CustomSelect from './customSelect/CustomSelect';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filtersSet, filtersReset } from '../../redux/filtersSlice';
+import useFilterForm from '../../hooks/useFilterForm';
 import './filterForm.scss'
 
 const FilterForm = () => {
   const dispatch = useDispatch()
-  const { payment_from: pay_from, payment_to: pay_to, profession: prof } = useSelector(state => state.filter.filter)
 
-  const [profession, setProfession] = useState('')
-  const [payment_from, setPayment_from] = useState('')
-  const [payment_to, setPayment_to] = useState('')
-  const [validError, setValidError] = useState(false);
-
-  const isPaymentValid = (payment_from && payment_to && (+payment_to >= +payment_from)) || !(payment_from && payment_to)
-
-  useEffect(() => {
-    setProfession(prof)
-    setPayment_from(pay_from)
-    setPayment_to(pay_to)
-    setValidError(false)
-  }, [prof, pay_from, pay_to])
-
-  useEffect(() => {
-    validatePayment()
-  }, [payment_from, payment_to])
+  const {
+    profession,
+    setProfession,
+    payment_from,
+    payment_to,
+    validError,
+    setPayment_from,
+    setPayment_to
+  } = useFilterForm()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (isPaymentValid) {
+    if (!validError) {
       dispatch(filtersSet({ profession, payment_from, payment_to }))
     }
   }
 
   const handleReset = () => dispatch(filtersReset())
 
-  const validatePayment = () => isPaymentValid ? setValidError(false) : setValidError(true)
-
   const formProps = {
     handleSubmit,
     handleReset,
     profession,
+    setProfession,
     payment_from,
     payment_to,
-    setProfession,
     setPayment_from,
     setPayment_to,
     validError
   }
 
   return (
-    <>
-      <View {...formProps} />
-    </>
+    <View {...formProps} />
   )
 }
 
@@ -84,12 +71,6 @@ const View = ({ handleSubmit, handleReset, profession, payment_from, payment_to,
   )
 }
 
-const ValidError = () => {
-  return (
-    <div className='invalid'>Проверьте оклад. Оклад 'До' должен быть выше чем 'От' </div>
-  )
-}
-
 const Numbers = ({ payment_from, payment_to, setPayment_from, setPayment_to }) => {
   return (
     <div className="form__filter filter">
@@ -105,5 +86,11 @@ const Numbers = ({ payment_from, payment_to, setPayment_from, setPayment_to }) =
         onChange={setPayment_to}
         data={'salary-to-input'} />
     </div>
+  )
+}
+
+const ValidError = () => {
+  return (
+    <div className='invalid'>Проверьте оклад. Оклад 'До' должен быть выше чем 'От' </div>
   )
 }
