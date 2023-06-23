@@ -31,4 +31,5 @@ const CustomInputNumber = ({ placeholder, value, onChange, data }) => {
     />
   )
 }
+
 export default CustomInputNumber

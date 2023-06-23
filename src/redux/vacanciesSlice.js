@@ -14,7 +14,8 @@ export const fetchVacancies = createAsyncThunk(
 )
 
 const initialState = vacanciesAdapter.getInitialState({
-  loadingStatus: 'idle',
+  loadingStatus: false,
+  errorStatus: false,
   total: 0,
 })
 
@@ -28,17 +29,19 @@ const favoritesSlice = createSlice({
     builder
       .addCase(fetchVacancies.pending, (state) => {
         state.total = 0
-        state.loadingStatus = 'loading'
+        state.loadingStatus = true
+        state.errorStatus = false
       })
       .addCase(fetchVacancies.fulfilled, (state, action) => {
         const { objects, total } = action.payload
         const data = _transformVacancies(objects)
         vacanciesAdapter.setAll(state, data)
-        state.loadingStatus = 'ok'
+        state.loadingStatus = false
         state.total = total > 500 ? 125 : Math.ceil(total / 4)
       })
       .addCase(fetchVacancies.rejected, (state) => {
-        state.loadingStatus = 'error'
+        state.loadingStatus = false
+        state.errorStatus = true
       })
       .addDefaultCase(() => { })
   }
@@ -52,5 +55,15 @@ export const { selectAll } = vacanciesAdapter.getSelectors(state => state.vacanc
 
 export const vacanciesSelector = createSelector(
   selectAll,
-  favorites => favorites
+  (state) => state.vacancies.total,
+  (vacancies, total) => ({ vacancies, total })
+)
+
+export const vacanciesLoadingStatusSelector = createSelector(
+  (state) => state.vacancies.loadingStatus,
+  (state) => state.vacancies.errorStatus,
+  (isLoading, isError) => {
+    const isLoaded = !(isLoading || isError)
+    return { isLoading, isError, isLoaded }
+  }
 )

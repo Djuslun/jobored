@@ -9,6 +9,10 @@
   padding: 27px 0;
   background: $white;
 
+  &__logo {
+    margin-right: 280px;
+  }
+
   &__container {
     display: flex;
     align-items: center;
@@ -18,12 +22,20 @@
 @media (max-width: 1023px) {
   .header {
     padding: 18px 0;
+
+    &__logo {
+      margin-right: 200px;
+    }
   }
 }
 
 @media (max-width: 767px) {
   .header {
     padding: 12px 0;
+
+    &__logo {
+      margin-right: 0px;
+    }
 
     &__container {
       justify-content: space-between;

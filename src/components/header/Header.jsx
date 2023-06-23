@@ -22,7 +22,7 @@ const Header = () => {
           <Logo />
         </Link>
         <Nav openClass={openClass} onClick={(close)} />
-        <Burger opened={opened} onClick={toggle}></Burger>
+        <Burger opened={opened} onClick={toggle} />
       </div>
     </header>
   )
