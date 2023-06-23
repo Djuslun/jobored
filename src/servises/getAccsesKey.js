@@ -13,8 +13,7 @@ export const useAccsesKey = async () => {
     hr: `${hr}`,
   }
   try {
-    let accsessKey = localStorage.getItem('token')
-
+    let accsessKey = JSON.parse(localStorage.getItem('token'))
     if (!accsessKey || accsessKey.ttl < (Date.now() / 1000)) {
       const response = await request(`${BASE_URL}oauth2/password/`, headers, params)
 
